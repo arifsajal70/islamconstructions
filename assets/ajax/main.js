@@ -16,6 +16,9 @@ $("form").submit(function(e){
                 if($("#stock-report").is(":visible")){
                     $("[href=\"#construction-site-stock\"]").click();
                 }
+                if($("#accounts-report").is(":visible")){
+                    $("[href=\"#construction-site-accounts\"]").click();
+                }
             }else if(alert.status == "error"){
                 toastr['error'](alert.message);
             }else if(alert.status == "warning"){
@@ -76,6 +79,9 @@ function deleteElelm(url){
                         if($("#stock-report").is(":visible")){
                             $("[href=\"#construction-site-stock\"]").click();
                         }
+                        if($("#accounts-report").is(":visible")){
+                            $("[href=\"#construction-site-accounts\"]").click();
+                        }
                     }else if(data.status === "error"){
                         swal({
                             title: 'Not Deleted!',
@@ -98,6 +104,10 @@ function deleteElelm(url){
             });
         }
     })
+}
+
+function download(url,filename){
+    window.open(baseUrl+'documents/download/'+url+'/'+filename)
 }
 
 function switchStatus(url){
@@ -135,6 +145,10 @@ function reloadTable(){
         adminsTable.fnReloadAjax();
     }else if($("#siteAccountsTable").is(":visible")){
         siteAccountsTable.fnReloadAjax();
+    }else if($("#siteDocumentsTable").is(":visible")){
+        siteDocumentsTable.fnReloadAjax();
+    }else if($("#siteBillsTable").is(":visible")){
+        siteBillsTable.fnReloadAjax();
     }
 }
 

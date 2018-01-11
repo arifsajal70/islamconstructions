@@ -82,6 +82,12 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#construction-site-accounts" role="tab">Accounts</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#construction-site-employee" role="tab">Employees</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#construction-site-documents" role="tab">Documents</a>
+                        </li>
                     </ul>
 
 
@@ -184,6 +190,69 @@
                             </div>
                         </div>
                         <!-- Construction Site Accounts End -->
+
+                        <!-- Construction Site Accounts -->
+                        <div class="tab-pane card-block" id="construction-site-employee" role="tabpanel">
+                            <div class="col-xs-12">
+                                <a class="btn btn-primary col-xs-12 pull-right mb-1" href="<?php echo base_url('employees/')?>">Add Employee</a>
+                            </div>
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-striped table-bordered" id="siteemployeesTable" style="width:100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Photo</th>
+                                        <th>Working As</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Photo</th>
+                                        <th>Working As</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Construction Site Accounts End -->
+
+                        <!-- Construction Site Documents -->
+                        <div class="tab-pane card-block" id="construction-site-documents" role="tabpanel">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary col-xs-12 pull-right mb-1 " data-toggle="modal" data-target="#addDocument">Add Document</button>
+                            </div>
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-striped table-bordered" id="siteDocumentsTable" style="width:100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Title</th>
+                                        <th>Note</th>
+                                        <th>Download</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Title</th>
+                                        <th>Note</th>
+                                        <th>Download</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Construction Site Documents End -->
+
                     </div>
                     <!--End Tab Content -->
 
@@ -240,34 +309,43 @@
                 <div class="card mb-0">
                     <ul class="nav nav-tabs nav-tabs-2 profile-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">Engineer</a>
+                            <a class="nav-link active" data-toggle="tab" href="#supply-site-bills" role="tab">Bills</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#photos" role="tab">Photos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#friends" role="tab">Friends</a>
+                            <a class="nav-link" data-toggle="tab" href="#supply-site-payments" role="tab">Payments</a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active table-responsive" id="profile" role="tabpanel">
-                            <div class="col-md-12 mt-2">
-                                <div class="box bg-white user-4 img-cover" style="background-image: url(<?php echo base_url('assets/')?>img/photos-1/1.jpg);">
-                                    <div class="u-content">
-                                        <h5><a class="text-white" href="#">[Default Name]</a></h5>
-                                        <p class="mb-2">[Default Email]</p>
-                                        <div class="avatar box-64 mb-2">
-                                            <img class="b-a-radius-circle shadow-success" src="uploads" onerror="this.src='<?php echo base_url('uploads/system/default-user.jpg');?>'">
-                                        </div>
-                                        <div class="text-xs-center mt-0-5">
-                                            <a class="btn btn-primary btn-rounded mx-0-5">Call Now</a>
-                                            <a class="btn btn-outline-primary btn-rounded mx-0-5">Message</a>
-                                        </div>
-                                    </div>
-                                </div>
+
+                        <div class="tab-pane active card-block" id="supply-site-bills" role="tabpanel">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary col-xs-12 pull-right mb-1 " data-toggle="modal" data-target="#addBill">Add Bill</button>
+                            </div>
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-striped table-bordered" id="siteBillsTable" style="width:100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Title</th>
+                                        <th>Note</th>
+                                        <th>Download</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Title</th>
+                                        <th>Note</th>
+                                        <th>Download</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
-                        <div class="tab-pane card-block" id="photos" role="tabpanel">
+
+                        <div class="tab-pane card-block" id="supply-site-payments" role="tabpanel">
                             <div class="gallery-2 row">
                                 <div class="col-md-4 col-sm-6 col-xs-6">
                                     <div class="g-item">
@@ -316,75 +394,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane card-block" id="friends" role="tabpanel">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/8.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/9.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/10.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/1.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
+
                 </div>
             </div>
         </div>
@@ -571,7 +583,6 @@
             </div>
             <form method="post" enctype="multipart/form-data" id="transactionForm">
                 <div class="modal-body">
-                    <input type="hidden" name="siteID">
                     <div class="form-group">
                         <label>Amount</label>
                         <input type="text" class="form-control" placeholder="Amount" name="amount">
@@ -602,3 +613,79 @@
     </div>
 </div>
 <!-- Stock Add Ends -->
+
+
+<!-- Document Add -->
+<div class="modal fade" role="dialog" aria-labelledby="addDocument" aria-hidden="true" id="addDocument">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Add Document</h4>
+            </div>
+            <form method="post" enctype="multipart/form-data" id="documentForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" placeholder="Title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label>Note</label>
+                        <textarea type="text" class="form-control" row="5" placeholder="Note" name="note"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Documents</label>
+                        <input type="file" class="dropify" name="document">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Document</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Document Add Ends -->
+
+
+<!-- Bill Add -->
+<div class="modal fade" role="dialog" aria-labelledby="addBill" aria-hidden="true" id="addBill">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Add Bill</h4>
+            </div>
+            <form method="post" enctype="multipart/form-data" id="billForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" placeholder="Title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" placeholder="Title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label>Note</label>
+                        <textarea type="text" class="form-control" row="5" placeholder="Note" name="note"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Documents</label>
+                        <input type="file" class="dropify" name="document">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Bill</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Bill Add Ends -->

@@ -99,9 +99,9 @@ class MY_Model extends CI_Model{
     }
 
     public function update($data = array()){
-        if($this->table_name && $this->field_name){
-            $this->db->set($data);
-            $this->db->where($this->field_name,$this->primary_key);
+        if($this->table_name && ($this->field_name || $this->where)){
+            $this->db->set($data,FALSE);
+            $this->_where();
             if($this->db->update($this->table_name)){
                 return TRUE;
             }else{
@@ -114,7 +114,7 @@ class MY_Model extends CI_Model{
         $this->load->helper('string');
         $config['upload_path'] = $path;
         $config['allowed_types'] = 'gif|jpg|jpeg|png|zip|rar';
-        $config['max_size'] = 10000;
+        $config['max_size'] = 1024000;
         $config['file_name'] = time().random_string('alnum',20).time();
         $this->load->library('upload', $config);
         $this->upload->initialize($config);

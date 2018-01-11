@@ -8,6 +8,7 @@ class Employees extends MY_Controller{
                 'upload',
                 'alert',
                 'datepicker',
+                'select2',
                 'customjs'=> array(
                     base_url('assets/ajax/main.js'),
                     base_url('assets/ajax/employee.js'))
@@ -45,17 +46,46 @@ class Employees extends MY_Controller{
         }
     }
 
+    //list of employee for site wise view
+    public function site_employee_table($siteID){
+        $this->cm->table_name = "employees";
+        $this->cm->where = array('siteID'=>$siteID);
+        $employees = $this->cm->get();
+        if($employees->num_rows() > 0){
+            $n=1;
+            foreach($employees->result() as $emp){
+                $result = array();
+                $result[] = $n++;
+                $result[] = $emp->name;
+                $result[] = $emp->email;
+                $result[] = $emp->phone;
+                $result[] = file_exists('./uploads/'.$emp->photo) ? "<img src='".base_url('uploads/'.$emp->photo)."' width='30px' />" : "-";
+                $result[] = $emp->usertype;
+                $table['data'][] = $result;
+            }
+            echo json_encode($table);
+        }else{
+            echo '{
+				"sEcho": 1,
+				"iTotalRecords": "0",
+				"iTotalDisplayRecords": "0",
+				"aaData": []
+			}';
+        }
+    }
+
     public function add(){
         $this->form_validation->set_rules('name','Name','trim|xss_clean|required');
         $this->form_validation->set_rules('email','Email','trim|xss_clean|valid_email|is_unique[employees.email]');
         $this->form_validation->set_rules('phone','Phone','trim|xss_clean|required');
         $this->form_validation->set_rules('address','Address','trim|xss_clean');
+        $this->form_validation->set_rules('siteID','Site','trim|xss_clean|required');
         $this->form_validation->set_rules('usertype','User Type','trim|xss_clean|required');
 
         if($this->form_validation->run() == FALSE){
             $this->send_warning(validation_errors());
         }else{
-            $post_data = $this->array_from_post(array('name','email','phone','address','usertype'));
+            $post_data = $this->array_from_post(array('name','email','phone','address','siteID','usertype'));
             if($_FILES){
                 foreach($_FILES as $key => $value){
                     $upload = $this->cm->upload($key,'./uploads/');
@@ -71,6 +101,7 @@ class Employees extends MY_Controller{
                 'email' => $post_data['email'],
                 'phone' => $post_data['phone'],
                 'address' => $post_data['address'],
+                'siteID' => $post_data['siteID'],
                 'photo' => $filenames['photo'],
                 'document' => $filenames['document'],
                 'usertype' => $post_data['usertype'],

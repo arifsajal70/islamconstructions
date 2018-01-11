@@ -2,6 +2,8 @@
 <?php
     $this->cm->table_name = "usertypes";
     $types = $this->cm->get();
+    $this->cm->table_name = "sites";
+    $sites = $this->cm->get();
 ?>
 <div class="box box-block bg-white table-responsive" id="eng-table-view">
     <table class="table table-striped table-bordered dataTable" id="employeesTable" style="width:100%;">
@@ -349,6 +351,15 @@
                     <div class="form-group">
                         <label>Salary</label>
                         <input type="text" class="form-control" placeholder="Salary" name="salary">
+                    </div>
+                    <div class="form-group">
+                        <label>Site</label>
+                        <select name="siteID" class="form-control select2" style="width:100%;">
+                            <option value="">Select Site</option>
+                            <?php if($sites->num_rows() > 0):foreach($sites->result() as $site):?>
+                            <option value="<?php echo $site->ID;?>"><?php echo $site->name;?></option>
+                            <?php endforeach;endif;?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Working As</label>
