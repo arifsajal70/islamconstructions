@@ -19,6 +19,7 @@ $(document).ready(function() {
             $("[href=\"#engineer-profile\"]").click();
         }else if($("#supply-site-view").is(":visible")){
             $("#supply-site-view").slideUp();
+            $("[href=\"#supply-site-bills\"]").click();
         }
     });
 
@@ -112,6 +113,35 @@ $(document).ready(function() {
     });
     //end after clicking Employees
 
+    //after clicking Payments
+    $("[href=\"#supply-site-payments\"]").click(function(){
+        window.sitePaymentsTable = $("#sitePaymentsTable").dataTable({
+            ajax : baseUrl+'payments/payments_table/'+siteID,
+            dom: 'Bfrtip',
+            destroy: true,
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+
+        jQuery.ajax({
+            type : "GET",
+            url : baseUrl+"payments/payments_report/"+siteID,
+            success:function(response){
+                var data = JSON.parse(response);
+                if(data.status === "success"){
+                    $("#payments-report").html(data.message);
+                }else{
+                    $("#payments-report").html(data.message);
+                }
+            }
+        });
+    });
+    //end after clicking Payments
+
 });
 
 function edit(url){
@@ -161,6 +191,7 @@ function view(url){
                     $("#transactionForm").attr('action',baseUrl+'transactions/add/'+pro.ID);
                     $("#documentForm").attr('action',baseUrl+'documents/add/'+pro.ID);
                     $("#billForm").attr('action',baseUrl+'bills/add/'+pro.ID);
+                    $("#paymentForm").attr('action',baseUrl+'payments/add/'+pro.ID);
                     //Getting Single Engineer Regurding This Site
                     if(pro.sitetype === "Construction"){
                         jQuery.ajax({
@@ -172,6 +203,7 @@ function view(url){
                                     var eng = JSON.parse(data.message)[0];
                                     $("#engineer-name").html(eng.name);
                                     $("#engineer-email").html(eng.email);
+                                    $(".eng-img").attr('src',baseUrl+'uploads/'+eng.photo);
                                     $("#callNow").attr('href','tel:'+eng.phone);
                                     $("#textNow").attr('href','sms:'+eng.phone);
                                 }else if(data.message === "error"){

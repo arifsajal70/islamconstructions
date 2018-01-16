@@ -13,7 +13,7 @@ class Documents extends MY_Controller{
                 $result[] = $n++;
                 $result[] = $document->title;
                 $result[] = $document->note;
-                $result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"".urlencode($document->document)."\",\"".urlencode($document->filename)."\")'><i class=\"ti-download\"></i> Download</button>";
+                $result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"sitedocuments\",\"".$document->ID."\")'><i class=\"ti-download\"></i> Download</button>";
                 $result[] = delete_button('documents/delete/'.$document->ID);
                 $table['data'][] = $result;
             }
@@ -83,12 +83,29 @@ class Documents extends MY_Controller{
         }
     }
 
-    public function download($url,$filename = NULL){
+    public function download($table,$ID){
         $this->load->helper('download');
-        if($url && $filename){
-            force_download($filename,file_get_contents(base_url('uploads/'.$url)));
+        if($table == "sitedocuments" || $table == 'bills' || $table == "payments" || $table == "engineers" || $table == "managers" || $table == "employees"){
+            $this->cm->table_name = $table;
+            $this->cm->where = array('ID'=>$ID);
+            $document = $this->cm->get();
+            if($document->num_rows() === 1){
+                if($document->row()->filename && file_exists('./uploads/'.$document->row()->document)){
+                    if(!force_download($document->row()->filename,file_get_contents(base_url('uploads/'.$document->row()->document)))){
+                        exit('No File Found');
+                    }
+                }elseif(file_exists('./uploads/'.$document->row()->document)){
+                    if(!force_download($document->row()->document,file_get_contents(base_url('uploads/'.$document->row()->document)))){
+                        exit('No FIle Found');
+                    }
+                }else{
+                    echo "No File Found";
+                }
+            }else{
+                echo "No File Found";
+            }
         }else{
-            force_download($url,file_get_contents(base_url('uploads/'.$url)));
+            echo "No File Found";
         }
     }
 

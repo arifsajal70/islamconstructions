@@ -34,11 +34,7 @@
                             2016 © Islam Constructions
                         </div>
                         <div class="col-sm-8 text-sm-right">
-                            <ul class="nav nav-inline l-h-2">
-                                <li class="nav-item"><a class="nav-link text-black" href="#">Privacy</a></li>
-                                <li class="nav-item"><a class="nav-link text-black" href="#">Terms</a></li>
-                                <li class="nav-item"><a class="nav-link text-black" href="#">Help</a></li>
-                            </ul>
+                            Powred By <a href="https://opticcoder.com" target="__blank">Optic Coder</a>
                         </div>
                     </div>
                 </div>

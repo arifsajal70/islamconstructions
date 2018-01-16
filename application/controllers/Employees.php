@@ -32,6 +32,7 @@ class Employees extends MY_Controller{
                 $result[] = $emp->phone;
                 $result[] = file_exists('./uploads/'.$emp->photo) ? "<img src='".base_url('uploads/'.$emp->photo)."' width='30px' />" : "-";
                 $result[] = $emp->usertype;
+                $result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"employees\",\"".$emp->ID."\")'><i class=\"ti-download\"></i> Download</button>";
                 $result[] = view_button(base_url('employees/single_employee/'.$emp->ID))." ".edit_button(base_url('employees/single_employee/'.$emp->ID))." ".delete_button(base_url('employees/delete/'.$emp->ID));
                 $table['data'][] = $result;
             }
@@ -48,7 +49,9 @@ class Employees extends MY_Controller{
 
     //list of employee for site wise view
     public function site_employee_table($siteID){
-        $this->cm->table_name = "employees";
+        $this->cm->select = "siteemployees.* , siteemployees.ID as seID ,employees.*";
+        $this->cm->table_name = "siteemployees";
+        $this->cm->join = array('employees'=>'siteemployees.employeeID=employees.ID');
         $this->cm->where = array('siteID'=>$siteID);
         $employees = $this->cm->get();
         if($employees->num_rows() > 0){
@@ -61,6 +64,7 @@ class Employees extends MY_Controller{
                 $result[] = $emp->phone;
                 $result[] = file_exists('./uploads/'.$emp->photo) ? "<img src='".base_url('uploads/'.$emp->photo)."' width='30px' />" : "-";
                 $result[] = $emp->usertype;
+                $result[] = delete_button(base_url('employees/delete_employee_from_site/'.$emp->seID));
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -78,19 +82,22 @@ class Employees extends MY_Controller{
         $this->form_validation->set_rules('name','Name','trim|xss_clean|required');
         $this->form_validation->set_rules('email','Email','trim|xss_clean|valid_email|is_unique[employees.email]');
         $this->form_validation->set_rules('phone','Phone','trim|xss_clean|required');
+        $this->form_validation->set_rules('join_date','Joining Date','trim|xss_clean|required');
+        $this->form_validation->set_rules('salary','Salary','trim|xss_clean|required');
         $this->form_validation->set_rules('address','Address','trim|xss_clean');
-        $this->form_validation->set_rules('siteID','Site','trim|xss_clean|required');
         $this->form_validation->set_rules('usertype','User Type','trim|xss_clean|required');
 
         if($this->form_validation->run() == FALSE){
             $this->send_warning(validation_errors());
         }else{
-            $post_data = $this->array_from_post(array('name','email','phone','address','siteID','usertype'));
+            $post_data = $this->array_from_post(array('name','email','phone','join_date','salary','address','usertype'));
+            $name['document']['filename'] = "No File Selected";
             if($_FILES){
                 foreach($_FILES as $key => $value){
                     $upload = $this->cm->upload($key,'./uploads/');
                     if($upload['status'] == 'success'){
                         $filenames[$key] = $upload['file_name'];
+                        $name[$key]['filename'] = $_FILES[$key]['name'];
                     }else{
                         $filenames[$key] = $upload['error'];
                     }
@@ -101,8 +108,10 @@ class Employees extends MY_Controller{
                 'email' => $post_data['email'],
                 'phone' => $post_data['phone'],
                 'address' => $post_data['address'],
-                'siteID' => $post_data['siteID'],
                 'photo' => $filenames['photo'],
+                'join_date' => $post_data['join_date'],
+                'salary' => $post_data['salary'],
+                'filename' => $name['document']['filename'],
                 'document' => $filenames['document'],
                 'usertype' => $post_data['usertype'],
             );
@@ -115,6 +124,35 @@ class Employees extends MY_Controller{
                 }else{
                     $this->send_error('Can\' Add Employee Now, Please Try Again');
                 }
+            }
+        }
+    }
+
+    public function add_to_site($siteID = NULL){
+        $this->form_validation->set_rules('employeeID','Employee','trim|xss_clean|required|numeric');
+        $this->form_validation->set_rules('work_started','Joining Date','trim|xss_clean|required');
+        if($this->form_validation->run() == FALSE){
+            $this->send_warning(validation_errors());
+        }else{
+            $post_data = $this->array_from_post(array('employeeID','work_started'));
+            $this->cm->table_name = 'siteemployees';
+            $this->cm->where = array('employeeID'=>$post_data['employeeID'],'sites.status'=>1);
+            $this->cm->join = array('sites'=>'siteemployees.siteID=sites.ID');
+            $sites = $this->cm->get();
+            if($sites->num_rows() > 0){
+                $this->send_error('Employee Was Already Worked On A Active Site');
+                exit;
+            }
+            $insert_data = array(
+                'siteID' => $siteID,
+                'employeeID' => $post_data['employeeID'],
+                'work_started' => $post_data['work_started'],
+            );
+            $this->cm->table_name = "siteemployees";
+            if($this->cm->insert($insert_data)){
+                $this->send_success('Employee Added Successfully');
+            }else{
+                $this->send_error('Can\'t Add Employee Now, Please Try Again');
             }
         }
     }
@@ -163,12 +201,14 @@ class Employees extends MY_Controller{
             $post_data = $this->array_from_post(array('name','email','phone','address','join_date','salary','usertype'));
             $filenames['photo'] = $emp->photo;
             $filenames['document'] = $emp->document;
+            $name['document']['filename'] = $emp->filename;
             if($_FILES){
                 foreach($_FILES as $key => $value){
                     $upload = $this->cm->upload($key,'./uploads/');
                     if($upload['status'] == 'success'){
                         $this->cm->delete_file('./uploads/'.$filenames[$key]);
                         $filenames[$key] = $upload['file_name'];
+                        $name[$key]['filename'] = $_FILES[$key]['name'];
                     }
                 }
             }
@@ -180,6 +220,7 @@ class Employees extends MY_Controller{
                 'join_date' => $post_data['join_date'],
                 'salary' => $post_data['salary'],
                 'photo' => $filenames['photo'],
+                'filename' => $name['document']['filename'],
                 'document' => $filenames['document'],
                 'usertype' => $post_data['usertype'],
             );
@@ -205,6 +246,16 @@ class Employees extends MY_Controller{
             }else{
                 $this->send_error('Can\'t Delete Right Now, Please Try Again');
             }
+        }
+    }
+
+    public function delete_employee_from_site($ID){
+        $this->cm->table_name = "siteemployees";
+        $this->cm->where = array('ID'=>$ID);
+        if($this->cm->delete()){
+            $this->send_success('Employee Deleted From Site Successfully');
+        }else{
+            $this->send_error('Can\'t  Delete Employee Now, Please Try Again');
         }
     }
 

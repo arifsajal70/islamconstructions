@@ -2,8 +2,6 @@
 <?php
     $this->cm->table_name = "usertypes";
     $types = $this->cm->get();
-    $this->cm->table_name = "sites";
-    $sites = $this->cm->get();
 ?>
 <div class="box box-block bg-white table-responsive" id="eng-table-view">
     <table class="table table-striped table-bordered dataTable" id="employeesTable" style="width:100%;">
@@ -15,6 +13,7 @@
             <th>Phone</th>
             <th>Image</th>
             <th>Working As</th>
+            <th>Document</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -26,6 +25,7 @@
             <th>Phone</th>
             <th>Image</th>
             <th>Working As</th>
+            <th>Document</th>
             <th>Action</th>
         </tr>
         </tfoot>
@@ -36,29 +36,6 @@
 <div class="box box-block bg-white" id="profile-view" style="display:none;">
     <div class="profile-header mb-1">
         <div class="profile-header-cover img-cover" style="background-image: url(<?php echo base_url('assets/');?>img/photos-1/1.jpg);"></div>
-        <div class="profile-header-counters clearfix">
-            <div class="container-fluid">
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">2k</h5>
-                        <span class="text-muted">Followers</span>
-                    </a>
-                </div>
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">320</h5>
-                        <span class="text-muted">Following</span>
-                    </a>
-
-                </div>
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">190</h5>
-                        <span class="text-muted">Activities</span>
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -84,93 +61,8 @@
                         </a>
                     </ul>
                 </div>
-                <div class="card">
-                    <div class="card-header text-uppercase"><b>Who to follow</b></div>
-                    <div class="items-list">
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/1.jpg" alt="">
-                                            <i class="status bg-success bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/2.jpg" alt="">
-                                            <i class="status bg-danger bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/3.jpg" alt="">
-                                            <i class="status bg-secondary bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card-block">
-                        <button type="submit" class="btn btn-primary btn-block">Show more</button>
-                    </div>
-                </div>
-                <div class="box bg-white">
-                    <ul class="nav nav-4">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-home"></i> My Profile
-                                <div class="tag tag-warning float-xs-right">14</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-pulse"></i> Balance
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-wallet"></i> Friends
-                                <div class="tag tag-purple float-xs-right">14</div>
-                            </a>
-                        </li>
-                        <li class="nav-item b-b-0">
-                            <a class="nav-link" href="#">
-                                <i class="ti-help-alt"></i> Settings
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </div>
-            <div class="col-sm-8 col-md-9">
+            <div class="col-sm-8 col-md-9 mt-2">
                 <div class="card mb-0">
                     <ul class="nav nav-tabs nav-tabs-2 profile-tabs" role="tablist">
                         <li class="nav-item">
@@ -353,15 +245,6 @@
                         <input type="text" class="form-control" placeholder="Salary" name="salary">
                     </div>
                     <div class="form-group">
-                        <label>Site</label>
-                        <select name="siteID" class="form-control select2" style="width:100%;">
-                            <option value="">Select Site</option>
-                            <?php if($sites->num_rows() > 0):foreach($sites->result() as $site):?>
-                            <option value="<?php echo $site->ID;?>"><?php echo $site->name;?></option>
-                            <?php endforeach;endif;?>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label>Working As</label>
                         <select name="usertype" class="form-control">
                             <option value="">Select Usertype</option>
@@ -381,7 +264,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add Manager</button>
+                    <button type="submit" class="btn btn-primary">Add Employee</button>
                 </div>
             </form>
         </div>
@@ -398,7 +281,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Edit Manager</h4>
+                <h4 class="modal-title" id="myModalLabel">Edit Employee</h4>
             </div>
             <form id="editForm" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
@@ -446,7 +329,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Manager</button>
+                    <button type="submit" class="btn btn-primary">Save Employee</button>
                 </div>
             </form>
         </div>

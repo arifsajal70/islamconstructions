@@ -8,6 +8,7 @@
             <th>Phone</th>
             <th>Image</th>
             <th>Status</th>
+            <th>Document</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -19,6 +20,7 @@
             <th>Phone</th>
             <th>Image</th>
             <th>Status</th>
+            <th>Document</th>
             <th>Action</th>
         </tr>
         </tfoot>
@@ -29,29 +31,6 @@
 <div class="box box-block bg-white" id="profile-view" style="display:none;">
     <div class="profile-header mb-1">
         <div class="profile-header-cover img-cover" style="background-image: url(<?php echo base_url('assets/');?>img/photos-1/1.jpg);"></div>
-        <div class="profile-header-counters clearfix">
-            <div class="container-fluid">
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">2k</h5>
-                        <span class="text-muted">Followers</span>
-                    </a>
-                </div>
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">320</h5>
-                        <span class="text-muted">Following</span>
-                    </a>
-
-                </div>
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">190</h5>
-                        <span class="text-muted">Activities</span>
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -77,93 +56,9 @@
                         </a>
                     </ul>
                 </div>
-                <div class="card">
-                    <div class="card-header text-uppercase"><b>Who to follow</b></div>
-                    <div class="items-list">
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/1.jpg" alt="">
-                                            <i class="status bg-success bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/2.jpg" alt="">
-                                            <i class="status bg-danger bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/3.jpg" alt="">
-                                            <i class="status bg-secondary bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card-block">
-                        <button type="submit" class="btn btn-primary btn-block">Show more</button>
-                    </div>
-                </div>
-                <div class="box bg-white">
-                    <ul class="nav nav-4">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-home"></i> My Profile
-                                <div class="tag tag-warning float-xs-right">14</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-pulse"></i> Balance
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-wallet"></i> Friends
-                                <div class="tag tag-purple float-xs-right">14</div>
-                            </a>
-                        </li>
-                        <li class="nav-item b-b-0">
-                            <a class="nav-link" href="#">
-                                <i class="ti-help-alt"></i> Settings
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </div>
-            <div class="col-sm-8 col-md-9">
+
+            <div class="col-sm-8 col-md-9 mt-2">
                 <div class="card mb-0">
                     <ul class="nav nav-tabs nav-tabs-2 profile-tabs" role="tablist">
                         <li class="nav-item">

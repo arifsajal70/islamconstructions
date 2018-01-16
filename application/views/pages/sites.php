@@ -327,7 +327,11 @@
                                     <tr>
                                         <th>SL</th>
                                         <th>Title</th>
-                                        <th>Note</th>
+                                        <th>Date</th>
+                                        <th>Item</th>
+                                        <th>Quantity</th>
+                                        <th>Rate</th>
+                                        <th>Total</th>
                                         <th>Download</th>
                                         <th>Action</th>
                                     </tr>
@@ -336,7 +340,11 @@
                                     <tr>
                                         <th>SL</th>
                                         <th>Title</th>
-                                        <th>Note</th>
+                                        <th>Date</th>
+                                        <th>Item</th>
+                                        <th>Quantity</th>
+                                        <th>Rate</th>
+                                        <th>Total</th>
                                         <th>Download</th>
                                         <th>Action</th>
                                     </tr>
@@ -346,52 +354,39 @@
                         </div>
 
                         <div class="tab-pane card-block" id="supply-site-payments" role="tabpanel">
-                            <div class="gallery-2 row">
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/1.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/1.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
+                            <div class="col-md-12 user-1 mb-1">
+                                <div class="u-counters">
+                                    <div class="row no-gutter" id="payments-report">
+                                        [Demo Accounts Report]
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/2.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/2.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/3.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/3.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary col-xs-12 pull-right mb-1 " data-toggle="modal" data-target="#addPayment">Add Payment</button>
+                            </div>
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-striped table-bordered" id="sitePaymentsTable" style="width:100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Download</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Download</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
 
@@ -668,12 +663,25 @@
                         <input type="text" class="form-control" placeholder="Title" name="title">
                     </div>
                     <div class="form-group">
-                        <label>Title</label>
-                        <input type="text" class="form-control" placeholder="Title" name="title">
+                        <label>Date</label>
+                        <input type="text" class="form-control datepicker" name="date" value="<?php echo date('Y-m-d');?>">
                     </div>
                     <div class="form-group">
-                        <label>Note</label>
-                        <textarea type="text" class="form-control" row="5" placeholder="Note" name="note"></textarea>
+                        <label>Item</label>
+                        <select name="itemID" class="form-control select2" style="width:100%;" aria-hidden="true">
+                            <option value="">Select Item</option>
+                            <?php if($items->num_rows() > 0):foreach($items->result() as $item):?>
+                                <option value="<?php echo $item->ID;?>"><?php echo $item->name;?></option>
+                            <?php endforeach;endif;?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" class="form-control" placeholder="Quantity" name="quantity">
+                    </div>
+                    <div class="form-group">
+                        <label>Rate Per Item</label>
+                        <input type="number" class="form-control" placeholder="Rate Per Item" name="rate">
                     </div>
                     <div class="form-group">
                         <label>Documents</label>
@@ -689,3 +697,43 @@
     </div>
 </div>
 <!-- Bill Add Ends -->
+
+
+<!-- Payment Add -->
+<div class="modal fade" role="dialog" aria-labelledby="addPayment" aria-hidden="true" id="addPayment">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Add Payment</h4>
+            </div>
+            <form method="post" enctype="multipart/form-data" id="paymentForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" placeholder="Title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="text" class="form-control datepicker" name="date" value="<?php echo date('Y-m-d');?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="number" class="form-control" placeholder="Amount" name="amount">
+                    </div>
+                    <div class="form-group">
+                        <label>Documents</label>
+                        <input type="file" class="dropify" name="document">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Payment Add Ends -->

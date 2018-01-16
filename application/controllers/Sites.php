@@ -19,6 +19,49 @@ class Sites extends MY_Controller{
         $this->load->view('mainView',$data);
     }
 
+    public function constructions_site(){
+        $data['loader'] = $this->load(array(
+                'datatables',
+                'upload',
+                'alert',
+                'datepicker',
+                'select2',
+                'customjs'=> array(
+                    base_url('assets/ajax/main.js'),
+                    base_url('assets/ajax/construction_sites.js'))
+            )
+        );
+        $data['page_title'] = "Construction Sites";
+        $data['subview'] = "construction_sites";
+        $this->load->view('mainView',$data);
+    }
+
+    public function construction_site_table(){
+        $this->cm->table_name = "sites";
+        $this->cm->where = array('sitetype'=>'construction');
+        $sites = $this->cm->get();
+        if($sites->num_rows() > 0){
+            $n=1;
+            foreach($sites->result() as $site){
+                $result = array();
+                $result[] = $n++;
+                $result[] = $site->name;
+                $result[] = $site->address;
+                $result[] = $site->sitetype;
+                $result[] = view_button(base_url('sites/single_site/'.$site->ID))." ".edit_button(base_url('sites/single_site/'.$site->ID))." ".delete_button(base_url('sites/delete/'.$site->ID));
+                $table['data'][] = $result;
+            }
+            echo json_encode($table);
+        }else{
+            echo '{
+				"sEcho": 1,
+				"iTotalRecords": "0",
+				"iTotalDisplayRecords": "0",
+				"aaData": []
+			}';
+        }
+    }
+
     public function site_table(){
         $this->cm->table_name = "sites";
         $sites = $this->cm->get();
@@ -116,7 +159,6 @@ class Sites extends MY_Controller{
         $this->form_validation->set_rules('name','Name','trim|xss_clean|required');
         $this->form_validation->set_rules('address','Address','trim|xss_clean|required');
         $this->form_validation->set_rules('created','Site Created','trim|xss_clean|required');
-        $this->form_validation->set_rules('sitetype','Site Type','trim|xss_clean|required');
         $this->form_validation->set_rules('engineerID','Engineer','trim|xss_clean|required');
         if($this->form_validation->run() == FALSE){
             $this->send_warning(validation_errors());
@@ -136,7 +178,6 @@ class Sites extends MY_Controller{
                 'name' => $post_data['name'],
                 'address' => $post_data['address'],
                 'created' => $post_data['created'],
-                'sitetype' => $post_data['sitetype'],
                 'engineerID' => $post_data['engineerID'],
                 'photo' => $filenames['photo'],
             );

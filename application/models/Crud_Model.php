@@ -4,6 +4,7 @@ class Crud_Model extends MY_Model{
 
     public $table_name;
     public $select;
+    public $select_sum;
     public $field_name;
     public $primary_key;
     public $where;
@@ -13,6 +14,7 @@ class Crud_Model extends MY_Model{
     public function reset_query(){
         $this->table_name = NULL;
         $this->select = NULL;
+        $this->select_sum = NULL;
         $this->field_name = NULL;
         $this->primary_key = NULL;
         $this->where = NULL;

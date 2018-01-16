@@ -19,6 +19,9 @@ $("form").submit(function(e){
                 if($("#accounts-report").is(":visible")){
                     $("[href=\"#construction-site-accounts\"]").click();
                 }
+                if($("#payments-report").is(":visible")){
+                    $("[href=\"#supply-site-payments\"]").click();
+                }
             }else if(alert.status == "error"){
                 toastr['error'](alert.message);
             }else if(alert.status == "warning"){
@@ -37,12 +40,15 @@ $(".dropify").dropify();
 $(".select2").each(function () {
     $(this).select2();
 });
-$('.datepicker').datepicker({
-    format: "yyyy-mm-dd",
-    clearBtn: true,
-    autoclose: true,
-    todayHighlight: true,
+$(".datepicker").each(function () {
+    $(this).datepicker({
+        format: "yyyy-mm-dd",
+        clearBtn: true,
+        autoclose: true,
+        todayHighlight: true,
+    });
 });
+
 $('table').on('draw.dt', function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
@@ -82,6 +88,9 @@ function deleteElelm(url){
                         if($("#accounts-report").is(":visible")){
                             $("[href=\"#construction-site-accounts\"]").click();
                         }
+                        if($("#payments-report").is(":visible")){
+                            $("[href=\"#supply-site-payments\"]").click();
+                        }
                     }else if(data.status === "error"){
                         swal({
                             title: 'Not Deleted!',
@@ -106,8 +115,8 @@ function deleteElelm(url){
     })
 }
 
-function download(url,filename){
-    window.open(baseUrl+'documents/download/'+url+'/'+filename)
+function download(table,ID){
+    window.open(baseUrl+'documents/download/'+table+'/'+ID);
 }
 
 function switchStatus(url){
@@ -149,14 +158,26 @@ function reloadTable(){
         siteDocumentsTable.fnReloadAjax();
     }else if($("#siteBillsTable").is(":visible")){
         siteBillsTable.fnReloadAjax();
+    }else if($("#suppliersTable").is(":visible")){
+        suppliersTable.fnReloadAjax();
+    }else if($("#sitePaymentsTable").is(":visible")){
+        sitePaymentsTable.fnReloadAjax();
+    }else if($("#employeeTypeTable").is(":visible")){
+        employeeTypeTable.fnReloadAjax();
+    }else if($("#siteemployeesTable").is(":visible")){
+        siteemployeesTable.fnReloadAjax();
     }
 }
 
 $(document).ajaxStart(function(event,request,settings ) {
-    $( "body" ).append( "<div class=\"preloader\"></div>" );
+    if($('.modal-content').is(":visible")){
+        $(".modal-content").append( "<div class=\"preloader\"></div>" );
+    }else{
+        $("body").append( "<div class=\"preloader\"></div>" );
+    }
 });
 
-$( document ).ajaxComplete(function(event,request,settings ) {
+$(document).ajaxComplete(function(event,request,settings ) {
     $(".preloader").fadeOut(function(){
         $("div").remove('.preloader');
     });

@@ -48,12 +48,12 @@ class Admins extends MY_Controller{
 
     public function add(){
         $this->form_validation->set_rules('name','Name','trim|xss_clean|required');
-        $this->form_validation->set_rules('email','Email','trim|xss_clean|required|valid_email|is_unique[admins.email]');
-        $this->form_validation->set_rules('phone','Phone','trim|xss_clean|required');
+        $this->form_validation->set_rules('email','Email','trim|xss_clean|required|valid_email|is_unique[admins.email]|is_unique[managers.email]|is_unique[engineers.email]');
+        $this->form_validation->set_rules('phone','Phone','trim|xss_clean|required|is_unique[admins.phone]|is_unique[managers.phone]|is_unique[engineers.phone]');
         $this->form_validation->set_rules('address','Address','trim|xss_clean');
         $this->form_validation->set_rules('join_date','Joining Date','trim|xss_clean|required');
         $this->form_validation->set_rules('salary','Salary','trim|xss_clean|required');
-        $this->form_validation->set_rules('username','Username','trim|xss_clean|required');
+        $this->form_validation->set_rules('username','Username','trim|xss_clean|required|is_unique[admins.username]|is_unique[managers.username]|is_unique[engineers.username]');
         $this->form_validation->set_rules('password','Password','trim|xss_clean|required');
         $this->form_validation->set_rules('cpassword','Confirm Password','trim|xss_clean|matches[password]');
 

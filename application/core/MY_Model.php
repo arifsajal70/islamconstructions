@@ -4,6 +4,7 @@ class MY_Model extends CI_Model{
 
     protected $table_name;
     protected $select;
+    protected $select_sum;
     protected $primary_key;
     protected $field_name;
     protected $where;
@@ -17,10 +18,14 @@ class MY_Model extends CI_Model{
     }
 
     private function _select(){
-        if($this->select){
-            $this->db->select($this->select);
+        if($this->select_sum){
+            $this->db->select_sum($this->select_sum);
         }else{
-            $this->db->select('*');
+            if($this->select){
+                $this->db->select($this->select);
+            }else{
+                $this->db->select('*');
+            }
         }
     }
 
@@ -80,8 +85,9 @@ class MY_Model extends CI_Model{
     }
 
     public function delete(){
-        if($this->field_name && $this->primary_key){
-            if($this->db->delete($this->table_name,array($this->field_name=>$this->primary_key))){
+        if( ($this->field_name && $this->primary_key) || $this->where){
+            $this->_where();
+            if($this->db->delete($this->table_name)){
                 return TRUE;
             }else{
                 return FALSE;
@@ -131,7 +137,6 @@ class MY_Model extends CI_Model{
     }
 
     public function delete_file($file){
-        $this->load->helper('file');
         if(file_exists($file)){
             return unlink($file);
         }else{

@@ -8,7 +8,9 @@ class MY_Controller extends CI_Controller{
         $this->load->helper('security');
         $this->load->helper('button');
         $this->load->library('form_validation');
+        $this->load->library('session');
         $this->load->model('Crud_Model','cm');
+        $this->session->userdata('loggedin') == TRUE || redirect('login?Login_first_Than_Come');
     }
 
     public function load($load = array()){

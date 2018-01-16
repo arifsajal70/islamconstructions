@@ -37,16 +37,17 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4 offset-md-4">
-                <form>
+                <form id="signinForm">
+                    <div class="message"></div>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email">
+                            <input type="text" class="form-control" placeholder="Username Or Email" name="username">
                             <div class="input-group-addon"><i class="ti-email"></i></div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
+                            <input type="password" class="form-control" placeholder="Password" name="password">
                             <div class="input-group-addon"><i class="ti-key"></i></div>
                         </div>
                     </div>
@@ -72,8 +73,31 @@
 </div>
 
 <!-- Vendor JS -->
-<script type="text/javascript" src="<?php echo base_url('assets/');?>vendor/jquery/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/');?>vendor/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/');?>vendor/tether/js/tether.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/');?>vendor/bootstrap4/js/bootstrap.min.js"></script>
+<script>
+    $("#signinForm").submit(function(e){
+        e.preventDefault();
+        jQuery.ajax({
+            type: "POST",
+            url: "<?php echo base_url('login/ajax_login');?>",
+            data: $(this).serialize(),
+            success:function(response){
+                var data = JSON.parse(response);
+                if(data.status === "success"){
+                    $('.message').html("<div class='alert alert-success'>"+data.message+"</div>");
+                    setTimeout(function(){
+                        window.location = data.url;
+                    },2000)
+                }else if(data.status === "error"){
+                    $('.message').html("<div class='alert alert-danger'>"+data.message+"</div>");
+                }else if(data.status === "validation_error"){
+                    $('.message').html("<div class='alert alert-warning'>"+data.message+"</div>");
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

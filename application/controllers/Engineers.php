@@ -32,6 +32,7 @@ class Engineers extends MY_Controller{
                 $result[] = $eng->phone;
                 $result[] = file_exists('./uploads/'.$eng->photo) ? "<img src='".base_url('uploads/'.$eng->photo)."' width='30px' />" : "-";
                 $result[] = status_switch($eng->status,"engineers/status/$eng->ID/$eng->status");
+                $result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"engineers\",\"".$eng->ID."\")'><i class=\"ti-download\"></i> Download</button>";
                 $result[] = view_button(base_url('engineers/single_engineer/'.$eng->ID))." ".edit_button(base_url('engineers/single_engineer/'.$eng->ID))." ".delete_button(base_url('engineers/delete/'.$eng->ID));
                 $table['data'][] = $result;
             }
@@ -48,12 +49,12 @@ class Engineers extends MY_Controller{
 
     public function add(){
         $this->form_validation->set_rules('name','Name','trim|xss_clean|required');
-        $this->form_validation->set_rules('email','Email','trim|xss_clean|required|valid_email|is_unique[engineers.email]');
-        $this->form_validation->set_rules('phone','Phone','trim|xss_clean|required');
+        $this->form_validation->set_rules('email','Email','trim|xss_clean|required|valid_email|is_unique[admins.email]|is_unique[managers.email]|is_unique[engineers.email]');
+        $this->form_validation->set_rules('phone','Phone','trim|xss_clean|required|is_unique[admins.phone]|is_unique[managers.phone]|is_unique[engineers.phone]');
         $this->form_validation->set_rules('address','Address','trim|xss_clean');
         $this->form_validation->set_rules('join_date','Joining Date','trim|xss_clean|required');
         $this->form_validation->set_rules('salary','Salary','trim|xss_clean|required');
-        $this->form_validation->set_rules('username','Username','trim|xss_clean|required');
+        $this->form_validation->set_rules('username','Username','trim|xss_clean|required|is_unique[admins.username]|is_unique[managers.username]|is_unique[engineers.username]');
         $this->form_validation->set_rules('password','Password','trim|xss_clean|required');
         $this->form_validation->set_rules('cpassword','Confirm Password','trim|xss_clean|matches[password]');
 
@@ -66,6 +67,7 @@ class Engineers extends MY_Controller{
                     $upload = $this->cm->upload($key,'./uploads/');
                     if($upload['status'] == 'success'){
                         $filenames[$key] = $upload['file_name'];
+                        $name[$key]['filename'] = $_FILES[$key]['name'];
                     }else{
                         $filenames[$key] = $upload['error'];
                     }
@@ -79,6 +81,7 @@ class Engineers extends MY_Controller{
                 'join_date' => $post_data['join_date'],
                 'salary' => $post_data['salary'],
                 'photo' => $filenames['photo'],
+                'filename' => $name['document']['filename'],
                 'document' => $filenames['document'],
                 'username' => $post_data['username'],
                 'password' => $this->hash($post_data['password']),
@@ -140,12 +143,14 @@ class Engineers extends MY_Controller{
             $post_data = $this->array_from_post(array('name','email','phone','address','join_date','salary','username'));
             $filenames['photo'] = $eng->photo;
             $filenames['document'] = $eng->document;
+            $name['document']['filename'] = $eng->filename;
             if($_FILES){
                 foreach($_FILES as $key => $value){
                     $upload = $this->cm->upload($key,'./uploads/');
                     if($upload['status'] == 'success'){
                         $this->cm->delete_file('./uploads/'.$filenames[$key]);
                         $filenames[$key] = $upload['file_name'];
+                        $name[$key]['filename'] = $_FILES[$key]['name'];
                     }
                 }
             }
@@ -157,6 +162,7 @@ class Engineers extends MY_Controller{
                 'join_date' => $post_data['join_date'],
                 'salary' => $post_data['salary'],
                 'photo' => $filenames['photo'],
+                'filename' => $name['document']['filename'],
                 'document' => $filenames['document'],
                 'username' => $post_data['username'],
             );
