@@ -3,10 +3,21 @@ $(document).ready(function(){
         ajax : baseUrl+'sites/construction_site_table',
         dom: 'Bfrtip',
         buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
+            {
+                extend: 'pdfHtml5',
+                exportOptions:{columns: '0,1,2,3'},
+                title: function(){return 'Islam Constructions - Construction Sites'}
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions:{columns: '0,1,2,3'},
+                title: function(){return 'Islam Constructions - Construction Sites'}
+            },
+            {
+                extend: 'print',
+                exportOptions:{columns: '0,1,2,3'},
+                title: function(){return 'Islam Constructions - Construction Sites'}
+            },
         ]
     });
 });
@@ -19,7 +30,7 @@ function view(url){
             success:function(response){
                 var data = JSON.parse(response);
                 if(data.status === "success"){
-                    var pro = JSON.parse(data.message)[0];
+                    window.pro = JSON.parse(data.message)[0];
                     $("#site-table-view").slideUp();
                     $("button[data-target=\"#addingModal\"]").hide();
                     $("#back").show();
@@ -95,10 +106,21 @@ $("[href=\"#construction-site-stock\"]").click(function(){
         dom: 'Bfrtip',
         destroy: true,
         buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
+            {
+                extend: 'pdfHtml5',
+                exportOptions:{columns: '0,1,2,3,4'},
+                title: function(){return pro.name+' ( Construction Site )- Stock Report'}
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions:{columns: '0,1,2,3,4'},
+                title: function(){return pro.name+' ( Construction Site )- Stock Report'}
+            },
+            {
+                extend: 'print',
+                exportOptions:{columns: '0,1,2,3,4'},
+                title: function(){return pro.name+' ( Construction Site )- Stock Report'}
+            },
         ]
     });
 
@@ -124,10 +146,21 @@ $("[href=\"#construction-site-accounts\"]").click(function(){
         dom: 'Bfrtip',
         destroy: true,
         buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
+            {
+                extend: 'pdfHtml5',
+                exportOptions:{columns: '0,1,2,3,4'},
+                title: function(){return pro.name+' ( Construction Site )- Accounts Report'}
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions:{columns: '0,1,2,3,4'},
+                title: function(){return pro.name+' ( Construction Site )- Accounts Report'}
+            },
+            {
+                extend: 'print',
+                exportOptions:{columns: '0,1,2,3,4'},
+                title: function(){return pro.name+' ( Construction Site )- Accounts Report'}
+            },
         ]
     });
 
@@ -150,14 +183,8 @@ $("[href=\"#construction-site-accounts\"]").click(function(){
 $("[href=\"#construction-site-documents\"]").click(function(){
     window.siteDocumentsTable = $("#siteDocumentsTable").dataTable({
         ajax : baseUrl+'documents/documents_table/'+siteID,
-        dom: 'Bfrtip',
         destroy: true,
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
+        paging: false,
     });
 });
 //end after clicking Accounts
@@ -169,10 +196,21 @@ $("[href=\"#construction-site-employee\"]").click(function(){
         dom: 'Bfrtip',
         destroy: true,
         buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
+            {
+                extend: 'pdfHtml5',
+                exportOptions:{columns: '0,1,2,3,5'},
+                title: function(){return pro.name+'( Construction Site ) - Employee List'}
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions:{columns: '0,1,2,3,5'},
+                title: function(){return pro.name+'( Construction Site ) - Employee List'}
+            },
+            {
+                extend: 'print',
+                exportOptions:{columns: '0,1,2,3,5'},
+                title: function(){return pro.name+'( Construction Site ) - Employee List'}
+            },
         ]
     });
 });

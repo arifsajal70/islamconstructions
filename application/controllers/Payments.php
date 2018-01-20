@@ -97,21 +97,21 @@ class Payments extends MY_Controller{
         $html = "";
         $html .= "<div class=\"col-xs-12 col-sm-6 col-md-4 uc-item\">";
         $html .= "<a class=\"text-black\">";
-        $html .= "<strong>".$bill." <small>৳</small></strong>";
+        $html .= "<strong>".number_format($bill , 2)." <small>৳</small></strong>";
         $html .= "<span>Total Billed</span>";
         $html .= "</a>";
         $html .= "</div>";
 
         $html .= "<div class=\"col-xs-12 col-sm-6 col-md-4 uc-item\">";
         $html .= "<a class=\"text-black\">";
-        $html .= "<strong>".$payment." <small>৳</small></strong>";
+        $html .= "<strong>".number_format($payment , 2)." <small>৳</small></strong>";
         $html .= "<span>Total Payment</span>";
         $html .= "</a>";
         $html .= "</div>";
 
         $html .= "<div class=\"col-xs-12 col-sm-6 col-md-4 uc-item\">";
         $html .= "<a class=\"text-black\">";
-        $html .= "<strong>".($bill - $payment)." <small>৳</small></strong>";
+        $html .= "<strong>".(number_format($bill - $payment , 2))." <small>৳</small></strong>";
         $html .= "<span>Total Due</span>";
         $html .= "</a>";
         $html .= "</div>";

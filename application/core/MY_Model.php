@@ -18,14 +18,15 @@ class MY_Model extends CI_Model{
     }
 
     private function _select(){
-        if($this->select_sum){
+        if($this->select_sum && !$this->select){
             $this->db->select_sum($this->select_sum);
+        }elseif($this->select && !$this->select_sum){
+            $this->db->select($this->select);
+        }elseif($this->select_sum && $this->select){
+            $this->db->select_sum($this->select_sum);
+            $this->db->select($this->select);
         }else{
-            if($this->select){
-                $this->db->select($this->select);
-            }else{
-                $this->db->select('*');
-            }
+            $this->db->select('*');
         }
     }
 

@@ -53,6 +53,11 @@ $('table').on('draw.dt', function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+function password_change(url){
+    $("[data-target=\"#passChangeModal\"]").click();
+    $("#passchange").attr('action',url);
+}
+
 function deleteElelm(url){
     swal({
         title: 'Are you sure?',
@@ -166,6 +171,10 @@ function reloadTable(){
         employeeTypeTable.fnReloadAjax();
     }else if($("#siteemployeesTable").is(":visible")){
         siteemployeesTable.fnReloadAjax();
+    }else if($("#salaryTable").is(":visible")){
+        salaryTable.fnReloadAjax();
+    }else if($("#siteManagersTable").is(":visible")){
+        siteManagersTable.fnReloadAjax();
     }
 }
 

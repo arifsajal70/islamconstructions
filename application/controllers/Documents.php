@@ -14,7 +14,7 @@ class Documents extends MY_Controller{
                 $result[] = $document->title;
                 $result[] = $document->note;
                 $result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"sitedocuments\",\"".$document->ID."\")'><i class=\"ti-download\"></i> Download</button>";
-                $result[] = delete_button('documents/delete/'.$document->ID);
+                $result[] = delete_button(base_url('documents/delete/'.$document->ID));
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -85,7 +85,7 @@ class Documents extends MY_Controller{
 
     public function download($table,$ID){
         $this->load->helper('download');
-        if($table == "sitedocuments" || $table == 'bills' || $table == "payments" || $table == "engineers" || $table == "managers" || $table == "employees"){
+        if($table == "sitedocuments" || $table == 'bills' || $table == "payments" || $table == "engineers" || $table == "managers" || $table == "employees" || $table == "stocks" || $table == "transactions"){
             $this->cm->table_name = $table;
             $this->cm->where = array('ID'=>$ID);
             $document = $this->cm->get();

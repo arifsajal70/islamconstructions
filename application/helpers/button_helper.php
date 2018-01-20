@@ -28,8 +28,8 @@ function add_button($ajax_call,$id){
     return "<button type=\"button\" class=\"btn btn-success btn-sm\" onclick=\"$ajax_call('$id')\"><span class=\"fa fa-plus\"></span></button>";
 }
 
-function pass_change_button($ajax_call,$id){
-    return "<button type=\"button\" class=\"btn btn-info btn-sm\" onclick=\"$ajax_call('$id')\"><span class=\"fa fa-lock\"></span></button>";
+function pass_change_button($url){
+    return "<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Change Password\"  onclick=\"password_change('$url')\"><span class=\"fa fa-lock\"></span></button>";
 }
 
 function status_switch($status,$url){
@@ -38,6 +38,24 @@ function status_switch($status,$url){
     }
     else{
         return "<button type=\"button\" class=\"btn btn-danger btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Change Status To Active\" onclick=\"switchStatus('$url')\">Deactive</button>";
+    }
+}
+
+function status_button($status){
+    if($status == (int) 1){
+        return "<button type=\"button\" class=\"btn btn-success btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Site Active\" >Active</button>";
+    }
+    else{
+        return "<button type=\"button\" class=\"btn btn-danger btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Site Closed\" >Deactive</button>";
+    }
+}
+
+function payment_status($status,$url){
+    if($status == (int) 1){
+        return "<button type=\"button\" class=\"btn btn-success btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Change Status To Unpaid\" onclick=\"switchStatus('$url')\">Paid</button>";
+    }
+    else{
+        return "<button type=\"button\" class=\"btn btn-danger btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Change Status To Paid\" onclick=\"switchStatus('$url')\">Unpaid</button>";
     }
 }
 

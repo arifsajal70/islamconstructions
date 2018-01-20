@@ -62,8 +62,8 @@ class Bills extends MY_Controller{
                 'quantity' => $post_data['quantity'],
                 'rate' => $post_data['rate'],
                 'amount' => $post_data['quantity']*$post_data['rate'],
-                'filename' => $_FILES['document']['name'],
-                'document' => $filenames['document'],
+                'filename' => isset($_FILES['document']['name']) ? $_FILES['document']['name'] : "No File Selected",
+                'document' => isset($filenames['document']) ? $filenames['document'] : "No File Selected",
             );
             $this->cm->table_name = "bills";
             if($this->cm->insert($insert_data)){

@@ -49,17 +49,6 @@
                         <div class="text-muted mb-1"  id="profile-email">default@email.com</div>
                         <a class="btn btn-primary btn-rounded waves-effect" id="profile-call-now">Call Now</a>
                     </div>
-                    <ul class="list-group">
-                        <a class="list-group-item" href="#">
-                            <i class="ti-world mr-0-5"></i> example.com
-                        </a>
-                        <a class="list-group-item" href="#">
-                            <i class="ti-facebook mr-0-5"></i> facebook.com/example
-                        </a>
-                        <a class="list-group-item" href="#">
-                            <i class="ti-twitter mr-0-5"></i> twitter.com/example
-                        </a>
-                    </ul>
                 </div>
             </div>
             <div class="col-sm-8 col-md-9 mt-2">
@@ -69,133 +58,109 @@
                             <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#photos" role="tab">Photos</a>
+                            <a class="nav-link" data-toggle="tab" href="#workHistory" role="tab">Working History</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#friends" role="tab">Friends</a>
+                            <a class="nav-link" data-toggle="tab" href="#salary" role="tab">Salary</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="profile" role="tabpanel">
+                            <div class="card-block">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>:</th>
+                                        <td for="name">[ XXXXXX XXXXXX ]</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>:</th>
+                                        <td for="email">[ XXXXXXXX@XXXX.XXX ]</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <th>:</th>
+                                        <td for="phone">[ XXX-XXX XXXXX ]</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <th>:</th>
+                                        <td for="address">[ XXXXXXXXXXXXXXX.............. ]</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Joining Date</th>
+                                        <th>:</th>
+                                        <td for="join_date">[ YYYY-MM-DD ]</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Salary</th>
+                                        <th>:</th>
+                                        <td for="salary">[ XXXX.XX ]</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Document</th>
+                                        <th>:</th>
+                                        <td><button type="button" for="document" class="btn btn-info btn-sm waves-effect waves-light"><i class="ti-download"></i> Download</button></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane card-block" id="workHistory" role="tabpanel">
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-striped table-bordered" id="workHistoryTable" style="width:100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Site Name</th>
+                                        <th>Site Address</th>
+                                        <th>Site Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Site Name</th>
+                                        <th>Site Address</th>
+                                        <th>Site Status</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane card-block" id="salary" role="tabpanel">
+                            <div class="col-xs-12">
+                                <form id="employee_salary_generation" method="post">
+                                    <button type="submit" class="btn btn-primary col-xs-12 pull-right mb-1 ">Generate Salary</button>
+                                </form>
+                            </div>
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-striped table-bordered" id="salaryTable" style="width:100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
 
-                        </div>
-                        <div class="tab-pane card-block" id="photos" role="tabpanel">
-                            <div class="gallery-2 row">
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/1.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/1.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/2.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/2.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/3.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/3.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane card-block" id="friends" role="tabpanel">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/8.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/9.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/10.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/1.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

@@ -2,23 +2,6 @@
 
 class Sites extends MY_Controller{
 
-    public function index(){
-        $data['loader'] = $this->load(array(
-                'datatables',
-                'upload',
-                'alert',
-                'datepicker',
-                'select2',
-                'customjs'=> array(
-                    base_url('assets/ajax/main.js'),
-                    base_url('assets/ajax/site.js'))
-            )
-        );
-        $data['page_title'] = "Sites";
-        $data['subview'] = "sites";
-        $this->load->view('mainView',$data);
-    }
-
     public function constructions_site(){
         $data['loader'] = $this->load(array(
                 'datatables',
@@ -36,6 +19,23 @@ class Sites extends MY_Controller{
         $this->load->view('mainView',$data);
     }
 
+    public function supply_site(){
+        $data['loader'] = $this->load(array(
+                'datatables',
+                'upload',
+                'alert',
+                'datepicker',
+                'select2',
+                'customjs'=> array(
+                    base_url('assets/ajax/main.js'),
+                    base_url('assets/ajax/supply_site.js'))
+            )
+        );
+        $data['page_title'] = "Supply Sites";
+        $data['subview'] = "supply_sites";
+        $this->load->view('mainView',$data);
+    }
+
     public function construction_site_table(){
         $this->cm->table_name = "sites";
         $this->cm->where = array('sitetype'=>'construction');
@@ -48,6 +48,7 @@ class Sites extends MY_Controller{
                 $result[] = $site->name;
                 $result[] = $site->address;
                 $result[] = $site->sitetype;
+                $result[] = status_switch($site->status,base_url("sites/status/$site->ID/$site->status"));
                 $result[] = view_button(base_url('sites/single_site/'.$site->ID))." ".edit_button(base_url('sites/single_site/'.$site->ID))." ".delete_button(base_url('sites/delete/'.$site->ID));
                 $table['data'][] = $result;
             }
@@ -62,8 +63,9 @@ class Sites extends MY_Controller{
         }
     }
 
-    public function site_table(){
+    public function supply_site_table(){
         $this->cm->table_name = "sites";
+        $this->cm->where = array('sitetype'=>'supply');
         $sites = $this->cm->get();
         if($sites->num_rows() > 0){
             $n=1;
@@ -73,6 +75,7 @@ class Sites extends MY_Controller{
                 $result[] = $site->name;
                 $result[] = $site->address;
                 $result[] = $site->sitetype;
+                $result[] = status_switch($site->status,base_url("sites/status/$site->ID/$site->status"));;
                 $result[] = view_button(base_url('sites/single_site/'.$site->ID))." ".edit_button(base_url('sites/single_site/'.$site->ID))." ".delete_button(base_url('sites/delete/'.$site->ID));
                 $table['data'][] = $result;
             }
@@ -92,7 +95,10 @@ class Sites extends MY_Controller{
         $this->form_validation->set_rules('address','Address','trim|xss_clean|required');
         $this->form_validation->set_rules('created','Site Created','trim|xss_clean|required');
         $this->form_validation->set_rules('sitetype','Site Type','trim|xss_clean|required');
-        $this->form_validation->set_rules('engineerID','Engineer','trim|xss_clean|required');
+        //check if site was construction or not and set engineer validation for construction site type
+        if($this->input->post('sitetype') == "Construction"):
+            $this->form_validation->set_rules('engineerID','Engineer','trim|xss_clean|required');
+        endif;
 
         if($this->form_validation->run() == FALSE){
             $this->send_warning(validation_errors());
@@ -114,7 +120,7 @@ class Sites extends MY_Controller{
                 'created' => $post_data['created'],
                 'sitetype' => $post_data['sitetype'],
                 'engineerID' => $post_data['engineerID'],
-                'photo' => $filenames['photo'],
+                'photo' => isset($filenames['photo']) ? $filenames['photo'] : "No File Selected",
             );
             if(isset($insert_data)){
                 $this->cm->reset_query();
@@ -159,17 +165,18 @@ class Sites extends MY_Controller{
         $this->form_validation->set_rules('name','Name','trim|xss_clean|required');
         $this->form_validation->set_rules('address','Address','trim|xss_clean|required');
         $this->form_validation->set_rules('created','Site Created','trim|xss_clean|required');
-        $this->form_validation->set_rules('engineerID','Engineer','trim|xss_clean|required');
+        if($site->sitetype == "Construction"):
+            $this->form_validation->set_rules('engineerID','Engineer','trim|xss_clean|required');
+        endif;
         if($this->form_validation->run() == FALSE){
             $this->send_warning(validation_errors());
         }else{
             $post_data = $this->array_from_post(array('name','address','created','sitetype','engineerID'));
-            $filenames['photo'] = $site->photo;
             if($_FILES){
                 foreach($_FILES as $key => $value){
                     $upload = $this->cm->upload($key,'./uploads/');
                     if($upload['status'] == 'success'){
-                        $this->cm->delete_file('./uploads/'.$filenames[$key]);
+                        $this->cm->delete_file('./uploads/'.$site->photo);
                         $filenames[$key] = $upload['file_name'];
                     }
                 }
@@ -179,7 +186,7 @@ class Sites extends MY_Controller{
                 'address' => $post_data['address'],
                 'created' => $post_data['created'],
                 'engineerID' => $post_data['engineerID'],
-                'photo' => $filenames['photo'],
+                'photo' => isset($filenames['photo']) ? $filenames['photo'] : $site->photo,
             );
             $this->cm->table_name = "sites";
             $this->cm->field_name = "ID";
@@ -203,6 +210,26 @@ class Sites extends MY_Controller{
             }else{
                 $this->send_error('Can\'t Delete Right Now, Please Try Again');
             }
+        }
+    }
+
+    public function status($ID,$status){
+        switch ($status){
+            case (int) 0;
+                $status = (int) 1;
+                break;
+            case (int) 1;
+                $status = (int) 0;
+                break;
+        }
+        $status  = array('status'=>$status);
+        $this->cm->table_name = "sites";
+        $this->cm->field_name = "ID";
+        $this->cm->primary_key = $ID;
+        if($this->cm->update($status)){
+            $this->send_success('Status Updated Successfully');
+        }else{
+            $this->send_error('Can\' Update Status Now, Please Try Again');
         }
     }
 

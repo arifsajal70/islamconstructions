@@ -74,6 +74,27 @@ class MY_Controller extends CI_Controller{
         return $loader;
     }
 
+    public function check_site_status($siteID=NULL){
+        if($siteID == NULL){
+            $this->send_error('No Site Id Passed');
+            exit;
+        }
+        $this->cm->table_name = "sites";
+        $this->cm->where = array('ID'=>$siteID);
+        $site = $this->cm->get();
+        if($site->num_rows() > 0){
+            if($site->row()->status == 1){
+                return TRUE;
+            }else{
+                $this->send_error('Site Was Closed. You Can\'t Manipulate Anything In This Site.');
+                exit;
+            }
+        }else{
+            $this->send_error('No Site Found Regurding This ID');
+            exit;
+        }
+    }
+
     public function array_from_post($args = array()){
         if(is_array($args)){
             foreach($args as $key){

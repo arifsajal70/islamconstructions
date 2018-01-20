@@ -15,6 +15,7 @@ $employees = $this->cm->get();
             <th>Name</th>
             <th>Address</th>
             <th>Site Type</th>
+            <th>Status</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -24,6 +25,7 @@ $employees = $this->cm->get();
             <th>Name</th>
             <th>Address</th>
             <th>Site Type</th>
+            <th>Status</th>
             <th>Action</th>
         </tr>
         </tfoot>
@@ -111,6 +113,7 @@ $employees = $this->cm->get();
                                         <th>Quantity</th>
                                         <th>Date</th>
                                         <th>Stock Type</th>
+                                        <th>Document</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -121,6 +124,7 @@ $employees = $this->cm->get();
                                         <th>Quantity</th>
                                         <th>Date</th>
                                         <th>Stock Type</th>
+                                        <th>Document</th>
                                         <th>Action</th>
                                     </tr>
                                     </tfoot>
@@ -150,6 +154,7 @@ $employees = $this->cm->get();
                                         <th>Date</th>
                                         <th>Type</th>
                                         <th>Note</th>
+                                        <th>Document</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -160,6 +165,7 @@ $employees = $this->cm->get();
                                         <th>Date</th>
                                         <th>Type</th>
                                         <th>Note</th>
+                                        <th>Document</th>
                                         <th>Action</th>
                                     </tr>
                                     </tfoot>
@@ -382,6 +388,10 @@ $employees = $this->cm->get();
                         <label>Date</label>
                         <input type="text" class="form-control datepicker" placeholder="YYYY-MM-DD" name="date">
                     </div>
+                    <div class="form-group">
+                        <label>Document</label>
+                        <input type="file" class="dropify" name="document">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -425,6 +435,10 @@ $employees = $this->cm->get();
                     <div class="form-group">
                         <label>Note</label>
                         <textarea type="text" class="form-control" row="5" placeholder="Note..." name="note"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Document</label>
+                        <input type="file" class="dropify" name="document">
                     </div>
                 </div>
                 <div class="modal-footer">
