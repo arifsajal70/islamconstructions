@@ -10,6 +10,7 @@
     <!-- Title -->
     <title><?= $page_title ;?></title>
 
+    <link rel="icon" href="<?php echo base_url('uploads/system/icon-white.png')?>">
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="<?php echo base_url('assets/');?>vendor/bootstrap4/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url('assets/');?>vendor/themify-icons/themify-icons.css">
@@ -18,7 +19,6 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/');?>vendor/jscrollpane/jquery.jscrollpane.css">
     <link rel="stylesheet" href="<?php echo base_url('assets/');?>vendor/waves/waves.min.css">
     <link rel="stylesheet" href="<?php echo base_url('assets/');?>vendor/switchery/dist/switchery.min.css">
-    <link rel="stylesheet" href="<?php echo base_url('assets/');?>css/core.css">
     <?php
         if(isset($loader) && isset($loader['css'])){
             foreach($loader['css'] as $css){
@@ -26,6 +26,7 @@
             }
         }
     ?>
+	<link rel="stylesheet" href="<?php echo base_url('assets/');?>css/core.css">
     <script>
         window.baseUrl = "<?php echo base_url();?>";
     </script>

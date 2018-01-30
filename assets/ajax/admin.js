@@ -2,12 +2,23 @@ $(document).ready(function() {
     window.adminsTable = $("#adminsTable").dataTable({
         ajax : baseUrl+'admins/admin_table',
         dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
+		buttons: [
+			{
+				extend: 'pdfHtml5',
+				exportOptions:{columns: '0,1,2,3,5'},
+				title: function(){return 'Islam Constructions - Admins'}
+			},
+			{
+				extend: 'excelHtml5',
+				exportOptions:{columns: '0,1,2,3,5'},
+				title: function(){return 'Islam Constructions - Admins'}
+			},
+			{
+				extend: 'print',
+				exportOptions:{columns: '0,1,2,3,5'},
+				title: function(){return 'Islam Constructions - Admins'}
+			},
+		]
     });
 });
 
@@ -47,11 +58,20 @@ function view(url){
                 var data = JSON.parse(response);
                 if(data.status === "success"){
                     var pro = JSON.parse(data.message)[0];
-                    console.log(pro);
                     $("#profile-image").attr('src',baseUrl+'uploads/'+pro.photo);
                     $("#profile-name").html(pro.name);
                     $("#profile-email").html(pro.email);
                     $("#profile-call-now").attr('href',"tel:"+pro.phone);
+
+					//setting profile Information
+					$("[for='name']").html(pro.name);
+					$("[for='email']").html(pro.email);
+					$("[for='phone']").html(pro.phone);
+					$("[for='address']").html(pro.address);
+					$("[for='join_date']").html(pro.join_date);
+					$("[for='salary']").html(pro.salary);
+					$("[for='document']").attr('onclick','download("admins","'+pro.ID+'")');
+
                 }else if(data.status === "error"){
                     alert('No Profile Found');
                     $("#back").click();

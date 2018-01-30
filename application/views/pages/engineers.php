@@ -30,7 +30,7 @@
 <!-- Profile  -->
 <div class="box box-block bg-white" id="profile-view" style="display:none;">
     <div class="profile-header mb-1">
-        <div class="profile-header-cover img-cover" style="background-image: url(<?php echo base_url('assets/');?>img/photos-1/1.jpg);"></div>
+        <div class="profile-header-cover img-cover"></div>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -145,7 +145,9 @@
                                         <th>Amount</th>
                                         <th>Status</th>
                                         <th>Date</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+                                        	<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -154,7 +156,9 @@
                                         <th>Amount</th>
                                         <th>Status</th>
                                         <th>Date</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </tfoot>
                                 </table>

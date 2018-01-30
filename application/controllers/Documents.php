@@ -14,7 +14,9 @@ class Documents extends MY_Controller{
                 $result[] = $document->title;
                 $result[] = $document->note;
                 $result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"sitedocuments\",\"".$document->ID."\")'><i class=\"ti-download\"></i> Download</button>";
+                if($this->session->usertype == "Admin"):
                 $result[] = delete_button(base_url('documents/delete/'.$document->ID));
+                endif;
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -69,6 +71,12 @@ class Documents extends MY_Controller{
     public function delete($ID=NULL){
         $this->cm->table_name = "sitedocuments";
         $this->cm->where = array('ID'=>$ID);
+        $site = $this->cm->get()->row();
+		$this->check_site_status($site->siteID);
+		$this->cm->reset_query();
+
+        $this->cm->table_name = "sitedocuments";
+        $this->cm->where = array('ID'=>$ID);
         $file = $this->cm->get();
         if($this->cm->delete_file('./uploads/'.$file->row()->document)){
             $this->cm->field_name = "ID";
@@ -85,7 +93,7 @@ class Documents extends MY_Controller{
 
     public function download($table,$ID){
         $this->load->helper('download');
-        if($table == "sitedocuments" || $table == 'bills' || $table == "payments" || $table == "engineers" || $table == "managers" || $table == "employees" || $table == "stocks" || $table == "transactions"){
+        if($table == "personal_balance" || $table == "suppliers" || $table == "sitedocuments" || $table == 'bills' || $table == "payments" || $table == "engineers" || $table == "managers" || $table == "employees" || $table == "stocks" || $table == "transactions" || $table == "admins"){
             $this->cm->table_name = $table;
             $this->cm->where = array('ID'=>$ID);
             $document = $this->cm->get();

@@ -145,14 +145,24 @@ class MY_Model extends CI_Model{
         }
     }
 
-    public function send_mail($from,$to,$subject,$message){
-        $this->load->library('email');
-        $this->email->from($from);
-        $this->email->to($to);
-        $this->email->subject($subject);
-        $this->email->message($message);
-        $this->email->set_mailtype('html');
-        return $this->email->send();
-    }
+	public function send_mail($from,$to,$subject,$message){
+		$this->load->library('email');
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'mail.islamconstructions.com';
+		$config['smtp_port'] = '25';
+		$config['smtp_user'] = 'info@islamconstructions.com';
+		$config['smtp_pass'] = 'SajalS@@@@4560';
+		$this->email->initialize($config);
+		$this->email->from($from,$subject);
+		$this->email->to($to);
+		$this->email->subject($subject);
+		$this->email->message($message);
+		$this->email->set_mailtype('html');
+		if($this->email->send()){
+			return TRUE;
+		}else{
+			return $this->email->print_debugger();
+		}
+	}
 
 }

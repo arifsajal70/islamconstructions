@@ -37,6 +37,7 @@ class Login extends Signin_Controller{
             if($userdata != FALSE){
                 if($userdata->status == (int) 1){
                     $session_data = array(
+                        'ID' => $userdata->ID,
                         'name' => $userdata->name,
                         'email' => $userdata->email,
                         'phone' => $userdata->phone,

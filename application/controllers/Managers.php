@@ -2,7 +2,11 @@
 
 class Managers extends MY_Controller{
 
-    public function index(){
+	public function __construct(){
+		parent::__construct();
+	}
+
+	public function index(){
         $data['loader'] = $this->load(array(
                 'datatables',
                 'upload',
@@ -62,7 +66,9 @@ class Managers extends MY_Controller{
                 $result[] = $site->email;
                 $result[] = $site->phone;
                 $result[] = status_button($site->status);
+                if($this->session->usertype == "Admin"):
                 $result[] = delete_button(base_url('managers/delete_manager_from_site/'.$site->smID));
+                endif;
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -354,6 +360,11 @@ class Managers extends MY_Controller{
     }
 
     public function delete_manager_from_site($ID){
+        $this->cm->table_name = "sitemanagers";
+        $this->cm->where = array('ID'=>$ID);
+        $site = $this->cm->get()->row();
+		$this->check_site_status($site->siteID);
+		$this->cm->reset_query();
         $this->cm->table_name = "sitemanagers";
         $this->cm->where = array('ID'=>$ID);
         if($this->cm->delete()){

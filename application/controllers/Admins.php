@@ -2,7 +2,12 @@
 
 class Admins extends MY_Controller{
 
-    public function index(){
+	function __construct(){
+		parent::__construct();
+		$this->session->usertype == "Admin" || show_404();
+	}
+
+	public function index(){
         $data['loader'] = $this->load(array(
                 'datatables',
                 'upload',
@@ -32,7 +37,8 @@ class Admins extends MY_Controller{
                 $result[] = $admin->phone;
                 $result[] = file_exists('./uploads/'.$admin->photo) ? "<img src='".base_url('uploads/'.$admin->photo)."' width='30px' />" : "-";
                 $result[] = status_switch($admin->status,"admins/status/$admin->ID/$admin->status");
-                $result[] = view_button(base_url('admins/single_admin/'.$admin->ID))." ".edit_button(base_url('admins/single_admin/'.$admin->ID))." ".delete_button(base_url('admins/delete/'.$admin->ID));
+				$result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"admins\",\"".$admin->ID."\")'><i class=\"ti-download\"></i> Download</button>";
+                $result[] = pass_change_button(base_url('admins/change_password/'.$admin->ID))." ".view_button(base_url('admins/single_admin/'.$admin->ID))." ".edit_button(base_url('admins/single_admin/'.$admin->ID))." ".delete_button(base_url('admins/delete/'.$admin->ID));
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -78,8 +84,9 @@ class Admins extends MY_Controller{
                 'address' => $post_data['address'],
                 'join_date' => $post_data['join_date'],
                 'salary' => $post_data['salary'],
-                'photo' => $filenames['photo'],
-                'document' => $filenames['document'],
+                'photo' => isset($filenames['photo']) ? $filenames['photo'] : "No File Selected",
+                'filename' => $_FILES['document']['name'] ? $_FILES['document']['name'] : "No File Selected",
+                'document' => isset($filenames['document']) ? $filenames['document'] : "No File Selected",
                 'username' => $post_data['username'],
                 'password' => $this->hash($post_data['password']),
             );
@@ -138,13 +145,11 @@ class Admins extends MY_Controller{
             $this->send_warning(validation_errors());
         }else{
             $post_data = $this->array_from_post(array('name','email','phone','address','join_date','salary','username'));
-            $filenames['photo'] = $eng->photo;
-            $filenames['document'] = $eng->document;
             if($_FILES){
                 foreach($_FILES as $key => $value){
                     $upload = $this->cm->upload($key,'./uploads/');
                     if($upload['status'] == 'success'){
-                        $this->cm->delete_file('./uploads/'.$filenames[$key]);
+                        $this->cm->delete_file('./uploads/'.$eng->$key);
                         $filenames[$key] = $upload['file_name'];
                     }
                 }
@@ -156,8 +161,9 @@ class Admins extends MY_Controller{
                 'address' => $post_data['address'],
                 'join_date' => $post_data['join_date'],
                 'salary' => $post_data['salary'],
-                'photo' => $filenames['photo'],
-                'document' => $filenames['document'],
+				'photo' => isset($filenames['photo']) ? $filenames['photo'] : $eng->photo,
+				'filename' => $_FILES['document']['name'] ? $_FILES['document']['name'] : $eng->filename,
+				'document' => isset($filenames['document']) ? $filenames['document'] : $eng->document,
                 'username' => $post_data['username'],
             );
             $this->cm->table_name = "admins";
@@ -170,6 +176,23 @@ class Admins extends MY_Controller{
             }
         }
     }
+
+	public function change_password($ID=NULL){
+		$this->form_validation->set_rules('password','Password','trim|xss_clean|required');
+		$this->form_validation->set_rules('cpassword','Confirm Password','trim|xss_clean|matches[password]');
+		if($this->form_validation->run() == FALSE){
+			$this->send_warning(validation_errors());
+		}else{
+			$post_data = $this->array_from_post(array('password'));
+			$this->cm->table_name = "admins";
+			$this->cm->where = array('ID'=>$ID);
+			if($this->cm->update(array('password'=>$this->hash($post_data['password'])))){
+				$this->send_success('Password Changed Successfully');
+			}else{
+				$this->send_error('Can\'t Change Password Now, Please Try Again');
+			}
+		}
+	}
 
     public function status($ID,$status){
         switch ($status){

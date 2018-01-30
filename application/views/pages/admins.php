@@ -8,9 +8,10 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Image</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
+			<th>Status</th>
+			<th>Document</th>
+			<th>Action</th>
+		</tr>
         </thead>
         <tfoot>
         <tr>
@@ -20,6 +21,7 @@
             <th>Phone</th>
             <th>Image</th>
             <th>Status</th>
+			<th>Document</th>
             <th>Action</th>
         </tr>
         </tfoot>
@@ -29,30 +31,7 @@
 <!-- Profile  -->
 <div class="box box-block bg-white" id="profile-view" style="display:none;">
     <div class="profile-header mb-1">
-        <div class="profile-header-cover img-cover" style="background-image: url(<?php echo base_url('assets/');?>img/photos-1/1.jpg);"></div>
-        <div class="profile-header-counters clearfix">
-            <div class="container-fluid">
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">2k</h5>
-                        <span class="text-muted">Followers</span>
-                    </a>
-                </div>
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">320</h5>
-                        <span class="text-muted">Following</span>
-                    </a>
-
-                </div>
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">190</h5>
-                        <span class="text-muted">Activities</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+        <div class="profile-header-cover img-cover"></div>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -66,238 +45,60 @@
                         <div class="text-muted mb-1"  id="profile-email">default@email.com</div>
                         <a class="btn btn-primary btn-rounded waves-effect" id="profile-call-now">Call Now</a>
                     </div>
-                    <ul class="list-group">
-                        <a class="list-group-item" href="#">
-                            <i class="ti-world mr-0-5"></i> example.com
-                        </a>
-                        <a class="list-group-item" href="#">
-                            <i class="ti-facebook mr-0-5"></i> facebook.com/example
-                        </a>
-                        <a class="list-group-item" href="#">
-                            <i class="ti-twitter mr-0-5"></i> twitter.com/example
-                        </a>
-                    </ul>
-                </div>
-                <div class="card">
-                    <div class="card-header text-uppercase"><b>Who to follow</b></div>
-                    <div class="items-list">
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/1.jpg" alt="">
-                                            <i class="status bg-success bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/2.jpg" alt="">
-                                            <i class="status bg-danger bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/3.jpg" alt="">
-                                            <i class="status bg-secondary bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card-block">
-                        <button type="submit" class="btn btn-primary btn-block">Show more</button>
-                    </div>
-                </div>
-                <div class="box bg-white">
-                    <ul class="nav nav-4">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-home"></i> My Profile
-                                <div class="tag tag-warning float-xs-right">14</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-pulse"></i> Balance
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-wallet"></i> Friends
-                                <div class="tag tag-purple float-xs-right">14</div>
-                            </a>
-                        </li>
-                        <li class="nav-item b-b-0">
-                            <a class="nav-link" href="#">
-                                <i class="ti-help-alt"></i> Settings
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
-            <div class="col-sm-8 col-md-9">
+            <div class="col-sm-8 col-md-9 mt-2">
                 <div class="card mb-0">
                     <ul class="nav nav-tabs nav-tabs-2 profile-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">Profile</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#photos" role="tab">Photos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#friends" role="tab">Friends</a>
-                        </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="profile" role="tabpanel">
+							<div class="card-block">
+								<table class="table">
+									<tbody>
+									<tr>
+										<th>Name</th>
+										<th>:</th>
+										<td for="name">[ XXXXXX XXXXXX ]</td>
+									</tr>
+									<tr>
+										<th>Email</th>
+										<th>:</th>
+										<td for="email">[ XXXXXXXX@XXXX.XXX ]</td>
+									</tr>
+									<tr>
+										<th>Phone</th>
+										<th>:</th>
+										<td for="phone">[ XXX-XXX XXXXX ]</td>
+									</tr>
+									<tr>
+										<th>Address</th>
+										<th>:</th>
+										<td for="address">[ XXXXXXXXXXXXXXX.............. ]</td>
+									</tr>
+									<tr>
+										<th>Joining Date</th>
+										<th>:</th>
+										<td for="join_date">[ YYYY-MM-DD ]</td>
+									</tr>
+									<tr>
+										<th>Salary</th>
+										<th>:</th>
+										<td for="salary">[ XXXX.XX ]</td>
+									</tr>
+									<tr>
+										<th>Document</th>
+										<th>:</th>
+										<td><button type="button" for="document" class="btn btn-info btn-sm waves-effect waves-light"><i class="ti-download"></i> Download</button></td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+                        </div>
 
-                        </div>
-                        <div class="tab-pane card-block" id="photos" role="tabpanel">
-                            <div class="gallery-2 row">
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/1.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/1.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/2.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/2.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/3.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/3.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane card-block" id="friends" role="tabpanel">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/8.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/9.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/10.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/1.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -436,3 +237,35 @@
     </div>
 </div>
 <!--Editing Modal Ends -->
+
+<button data-toggle="modal" data-target="#passChangeModal" style="display:none;"></button>
+<!-- Password Change Modal -->
+<div class="modal fade" role="dialog" aria-labelledby="passChangeModal" aria-hidden="true" id="passChangeModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Change Password</h4>
+			</div>
+			<form id="passchange" method="post" enctype="multipart/form-data">
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Password</label>
+						<input type="password" class="form-control" placeholder="Password" name="password">
+					</div>
+					<div class="form-group">
+						<label>Confirm Password</label>
+						<input type="password" class="form-control" placeholder="Confirm Password" name="cpassword">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Change password</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--Password Change Modal Ends -->

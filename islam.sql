@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 20, 2018 at 08:21 AM
+-- Generation Time: Jan 30, 2018 at 06:06 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -37,9 +37,11 @@ CREATE TABLE `admins` (
   `join_date` date NOT NULL,
   `salary` decimal(10,2) NOT NULL,
   `photo` varchar(110) COLLATE utf8_unicode_ci NOT NULL,
+  `filename` varchar(220) COLLATE utf8_unicode_ci NOT NULL,
   `document` varchar(110) COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(110) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(220) COLLATE utf8_unicode_ci NOT NULL,
+  `pass_reset_key` varchar(110) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` int(11) NOT NULL,
   `usertype` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Admin'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -48,8 +50,8 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`ID`, `name`, `email`, `phone`, `address`, `join_date`, `salary`, `photo`, `document`, `username`, `password`, `status`, `usertype`) VALUES
-(6, 'Ariful Isam Sajal', 'sajalarifulislam@gmail.com', '01954465596', 'House #08 Road #03 Block-A Bochila Garden City, Bochila , Mohammadpur , Dhaka - 1207', '2018-01-14', '500.00', '<p>You did not select a file to upload.</p>', '<p>You did not select a file to upload.</p>', 'admin', '99c228b7f960f0a452ef133dc72a164c63f8204e377698fdfa68f50978dd962046434c1fb373450b7f780bbfa160afbf69ebbd84165c772c1083634d90d4eae9', 1, 'Admin');
+INSERT INTO `admins` (`ID`, `name`, `email`, `phone`, `address`, `join_date`, `salary`, `photo`, `filename`, `document`, `username`, `password`, `pass_reset_key`, `status`, `usertype`) VALUES
+(6, 'Ariful Islam Sajal', 'sajalarifulislam@gmail.com', '01954465596', 'House #08 Road #03 Block-A Bochila Garden City, Bochila , Mohammadpur , Dhaka - 1207', '2018-01-14', '500.00', '1517149980KUyqJGB9SFoMnieIHpRf1517149980.png', 'IMG_20171005_164349.jpg', '1516557610ckZD3eGTpQnIVShjWYJK1516557610.jpg', 'admin', '9970afa4e37e566253b99c9921891cc7afce83fb98174adb8e870ffa3b06ec112e57f77f62f2106a6958b598a6768a6634418ddf0c6d4b716646dabfcc0b3a42', '', 1, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -70,13 +72,20 @@ CREATE TABLE `bills` (
   `document` varchar(110) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `bills`
+-- Table structure for table `currentwork`
 --
 
-INSERT INTO `bills` (`ID`, `siteID`, `title`, `date`, `itemID`, `quantity`, `rate`, `amount`, `filename`, `document`) VALUES
-(2, 7, 'Web Application For Mobile', '2018-01-17', 5, 500, '10.00', '5000.00', '', '<p>You did not select a file to upload.</p>'),
-(3, 8, 'Web Application For Mobile', '2018-01-19', 6, 2000, '8.00', '16000.00', '103455746-GettyImages-512791400.600x400.jpg', '1516389135tizX17F5WCQ9OyT8hIHB1516389135.jpg');
+CREATE TABLE `currentwork` (
+  `ID` int(11) NOT NULL,
+  `siteID` int(11) DEFAULT NULL,
+  `vehicle` enum('Truck','Ship') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_status` enum('Not Arrived','Arrived','Unloading','Unloaded','Completed') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vehicle_name` varchar(220) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vehicle_number` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -98,13 +107,6 @@ CREATE TABLE `employees` (
   `status` int(11) NOT NULL DEFAULT '0',
   `usertype` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `employees`
---
-
-INSERT INTO `employees` (`ID`, `name`, `email`, `phone`, `address`, `join_date`, `salary`, `photo`, `filename`, `document`, `status`, `usertype`) VALUES
-(7, 'Ariful Isam Sajal', 'upsajal@gmail.com', '01908088966', 'House #08 Road #03 Block-A Bochila Garden City, Bochila , Mohammadpur , Dhaka - 1207', '2018-01-17', '3000.00', '<p>You did not select a file to upload.</p>', '64487_utouch_v132.zip', '1516200612KCqQsN9cyWagP76hvHk01516200612.zip', 0, 'Labor');
 
 -- --------------------------------------------------------
 
@@ -139,16 +141,10 @@ CREATE TABLE `engineers` (
   `document` varchar(110) COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(110) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(220) COLLATE utf8_unicode_ci NOT NULL,
+  `pass_reset_key` varchar(110) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
   `usertype` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Engineer'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `engineers`
---
-
-INSERT INTO `engineers` (`ID`, `name`, `email`, `phone`, `address`, `join_date`, `salary`, `photo`, `filename`, `document`, `username`, `password`, `status`, `usertype`) VALUES
-(33, 'Gary E. Guzman', 'GaryEGuzman@jourrapide.com', '1163167739', 'Rua Herculano de Freitas, 758\r\nSão Paulo-SP', '2018-01-14', '50000.00', '1516200292tf6M7Qn2mu9Hor5yhqWF1516200292.jpg', '64487_utouch_v132.zip', '1516186033A8N1PML4USfTzOdil2uh1516186033.zip', 'Gary', '2dc5d9f0a8178984bad4064baddeafeaaf79a3e36e3e04cfac2bc7aeb74972e4bc747b94da69b75f4c1d64002f07a6e2788fe3624044c87416ed460801cd83ce', 1, 'Engineer');
 
 -- --------------------------------------------------------
 
@@ -164,13 +160,6 @@ CREATE TABLE `engineersalary` (
   `date` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `engineersalary`
---
-
-INSERT INTO `engineersalary` (`ID`, `engineerID`, `salary`, `paid`, `date`) VALUES
-(9, 33, '50000.00', 0, '2018-01');
-
 -- --------------------------------------------------------
 
 --
@@ -183,15 +172,6 @@ CREATE TABLE `items` (
   `unit` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `items`
---
-
-INSERT INTO `items` (`ID`, `name`, `unit`, `price`) VALUES
-(4, 'Stone Chips', 'CFT', '180.00'),
-(5, 'Brick', 'PCS', '8.00'),
-(6, 'Broken Bricks', 'CFT', '6.00');
 
 -- --------------------------------------------------------
 
@@ -212,16 +192,10 @@ CREATE TABLE `managers` (
   `document` varchar(110) COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(110) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(220) COLLATE utf8_unicode_ci NOT NULL,
+  `pass_reset_key` varchar(110) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` int(11) NOT NULL,
   `usertype` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Manager'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `managers`
---
-
-INSERT INTO `managers` (`ID`, `name`, `email`, `phone`, `address`, `join_date`, `salary`, `photo`, `filename`, `document`, `username`, `password`, `status`, `usertype`) VALUES
-(7, 'Ariful Isam Sajal', 'sajal@asynweb.com', '01908088966', 'House #08 Road #03 Block-A Bochila Garden City, Bochila , Mohammadpur , Dhaka - 1207', '2018-01-19', '50000.00', '<p>You did not select a file to upload.</p>', 'No FIle Selected', '<p>You did not select a file to upload.</p>', 'sajal', '9970afa4e37e566253b99c9921891cc7afce83fb98174adb8e870ffa3b06ec112e57f77f62f2106a6958b598a6768a6634418ddf0c6d4b716646dabfcc0b3a42', 1, 'Site Manager');
 
 -- --------------------------------------------------------
 
@@ -253,12 +227,37 @@ CREATE TABLE `payments` (
   `document` varchar(110) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `payments`
+-- Table structure for table `personal_balance`
 --
 
-INSERT INTO `payments` (`ID`, `siteID`, `title`, `date`, `amount`, `filename`, `document`) VALUES
-(2, 7, 'Web Application For Mobile', '2018-01-17', '2500.00', '', '<p>You did not select a file to upload.</p>');
+CREATE TABLE `personal_balance` (
+  `ID` int(11) NOT NULL,
+  `title` varchar(220) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `date` date DEFAULT NULL,
+  `filename` varchar(220) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `document` varchar(110) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal_expense`
+--
+
+CREATE TABLE `personal_expense` (
+  `ID` int(11) NOT NULL,
+  `title` varchar(220) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `date` date DEFAULT NULL,
+  `filename` varchar(220) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `document` varchar(110) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -290,15 +289,6 @@ CREATE TABLE `siteemployees` (
   `fire_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `siteemployees`
---
-
-INSERT INTO `siteemployees` (`ID`, `siteID`, `employeeID`, `work_started`, `status`, `fire_date`) VALUES
-(3, 9, 7, '2018-01-20', 'Active', '0000-00-00'),
-(4, 6, 7, '2018-01-20', 'Active', '0000-00-00'),
-(5, 10, 7, '2018-01-20', 'Active', '0000-00-00');
-
 -- --------------------------------------------------------
 
 --
@@ -311,13 +301,6 @@ CREATE TABLE `sitemanagers` (
   `managerID` int(11) NOT NULL,
   `added` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `sitemanagers`
---
-
-INSERT INTO `sitemanagers` (`ID`, `siteID`, `managerID`, `added`) VALUES
-(1, 8, 7, '2018-01-19');
 
 -- --------------------------------------------------------
 
@@ -336,14 +319,6 @@ CREATE TABLE `sites` (
   `status` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `sites`
---
-
-INSERT INTO `sites` (`ID`, `name`, `address`, `engineerID`, `sitetype`, `photo`, `created`, `status`) VALUES
-(8, 'Jamuna Park', 'No Address Available', NULL, 'Supply', '<p>You did not select a file to upload.</p>', '2018-01-18', 1),
-(11, 'Ariful Isam Sajal', 'sdsadsad', 33, 'Construction', '<p>You did not select a file to upload.</p>', '2018-01-20', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -361,12 +336,40 @@ CREATE TABLE `stocks` (
   `document` varchar(110) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `stocks`
+-- Table structure for table `supplierbills`
 --
 
-INSERT INTO `stocks` (`ID`, `siteID`, `date`, `stocktype`, `itemID`, `quantity`, `filename`, `document`) VALUES
-(28, 6, '2018-01-20', 'Add', 5, 200, 'No File Selected', 'NO File Selected');
+CREATE TABLE `supplierbills` (
+  `ID` int(11) NOT NULL,
+  `supplierID` int(11) DEFAULT NULL,
+  `title` varchar(220) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `itemID` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `rate` decimal(10,2) DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `filename` varchar(220) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `document` varchar(110) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplierpayments`
+--
+
+CREATE TABLE `supplierpayments` (
+  `ID` int(11) NOT NULL,
+  `supplierID` int(11) DEFAULT NULL,
+  `title` varchar(220) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `filename` varchar(220) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `document` varchar(110) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -381,16 +384,10 @@ CREATE TABLE `suppliers` (
   `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `address` text COLLATE utf8_unicode_ci NOT NULL,
   `photo` varchar(110) COLLATE utf8_unicode_ci NOT NULL,
+  `filename` varchar(220) COLLATE utf8_unicode_ci NOT NULL,
   `document` varchar(110) COLLATE utf8_unicode_ci NOT NULL,
   `usertype` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'supplier'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `suppliers`
---
-
-INSERT INTO `suppliers` (`ID`, `name`, `email`, `phone`, `address`, `photo`, `document`, `usertype`) VALUES
-(1, 'Ariful Isam Sajal', 'AprilRBurt@dayrep.com', '01908088966', 'House #08 Road #03 Block-A Bochila Garden City, Bochila , Mohammadpur , Dhaka - 1207', '', '', 'supplier');
 
 -- --------------------------------------------------------
 
@@ -409,13 +406,6 @@ CREATE TABLE `transactions` (
   `document` varchar(110) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `transactions`
---
-
-INSERT INTO `transactions` (`ID`, `siteID`, `amount`, `date`, `transactiontype`, `note`, `filename`, `document`) VALUES
-(93, 9, '2000.00', '2018-01-20', 'Add Balance', 'Nothing', 'No File Selected', 'No File Selected');
-
 -- --------------------------------------------------------
 
 --
@@ -427,15 +417,6 @@ CREATE TABLE `usertypes` (
   `usertype` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `note` varchar(220) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `usertypes`
---
-
-INSERT INTO `usertypes` (`ID`, `usertype`, `note`) VALUES
-(3, 'Gate Man', 'Something About Gateman'),
-(4, 'Watch Man', 'Something About Watch Man'),
-(5, 'Labor', 'Noting');
 
 --
 -- Indexes for dumped tables
@@ -452,6 +433,13 @@ ALTER TABLE `admins`
 --
 ALTER TABLE `bills`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `currentwork`
+--
+ALTER TABLE `currentwork`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `currentwork_ID_uindex` (`ID`);
 
 --
 -- Indexes for table `employees`
@@ -504,6 +492,19 @@ ALTER TABLE `payments`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `personal_balance`
+--
+ALTER TABLE `personal_balance`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `personal_balance_ID_uindex` (`ID`);
+
+--
+-- Indexes for table `personal_expense`
+--
+ALTER TABLE `personal_expense`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `sitedocuments`
 --
 ALTER TABLE `sitedocuments`
@@ -532,6 +533,20 @@ ALTER TABLE `sites`
 --
 ALTER TABLE `stocks`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `supplierbills`
+--
+ALTER TABLE `supplierbills`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `supplierbills_ID_uindex` (`ID`);
+
+--
+-- Indexes for table `supplierpayments`
+--
+ALTER TABLE `supplierpayments`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `supplierpayments_ID_uindex` (`ID`);
 
 --
 -- Indexes for table `suppliers`
@@ -564,12 +579,17 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `currentwork`
+--
+ALTER TABLE `currentwork`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `employeesalary`
 --
@@ -579,22 +599,22 @@ ALTER TABLE `employeesalary`
 -- AUTO_INCREMENT for table `engineers`
 --
 ALTER TABLE `engineers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `engineersalary`
 --
 ALTER TABLE `engineersalary`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `managers`
 --
 ALTER TABLE `managers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `managersalary`
 --
@@ -604,7 +624,17 @@ ALTER TABLE `managersalary`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `personal_balance`
+--
+ALTER TABLE `personal_balance`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `personal_expense`
+--
+ALTER TABLE `personal_expense`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `sitedocuments`
 --
@@ -614,37 +644,47 @@ ALTER TABLE `sitedocuments`
 -- AUTO_INCREMENT for table `siteemployees`
 --
 ALTER TABLE `siteemployees`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `sitemanagers`
 --
 ALTER TABLE `sitemanagers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `sites`
 --
 ALTER TABLE `sites`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `supplierbills`
+--
+ALTER TABLE `supplierbills`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `supplierpayments`
+--
+ALTER TABLE `supplierpayments`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `usertypes`
 --
 ALTER TABLE `usertypes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -2,10 +2,9 @@
 
 class Transactions extends MY_Controller{
 
-    function __construct(){
-        parent::__construct();
-    }
-
+	/**
+	 * @param int $siteID Site ID
+	 */
     public function transactions_table($siteID = NULL){
         $this->cm->table_name = "transactions";
         $this->cm->where = array('siteID'=>$siteID);
@@ -20,7 +19,9 @@ class Transactions extends MY_Controller{
                 $result[] = $tran->transactiontype;
                 $result[] = $tran->note;
                 $result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"transactions\",\"".$tran->ID."\")'><i class=\"ti-download\"></i> Download</button>";
+                if($this->session->usertype == "Admin"):
                 $result[] = delete_button(base_url('transactions/delete/'.$tran->ID));
+                endif;
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -152,6 +153,9 @@ class Transactions extends MY_Controller{
                 exit;
             }
         }
+        $this->cm->reset_query();
+		$this->cm->table_name = "transactions";
+		$this->cm->where = array('ID'=>$ID);
         if($this->cm->delete()){
             $this->send_success('Transaction Deleted Successfully');
         }else{

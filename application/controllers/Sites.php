@@ -38,7 +38,11 @@ class Sites extends MY_Controller{
 
     public function construction_site_table(){
         $this->cm->table_name = "sites";
+        if($this->session->usertype == "Admin" || $this->session->usertype == "Manager"):
         $this->cm->where = array('sitetype'=>'construction');
+        elseif($this->session->usertype == "Engineer"):
+        $this->cm->where = array('sitetype'=>'construction','engineerID'=>$this->session->ID,'status'=>1);
+        endif;
         $sites = $this->cm->get();
         if($sites->num_rows() > 0){
             $n=1;
@@ -49,7 +53,13 @@ class Sites extends MY_Controller{
                 $result[] = $site->address;
                 $result[] = $site->sitetype;
                 $result[] = status_switch($site->status,base_url("sites/status/$site->ID/$site->status"));
+                if($this->session->usertype == "Admin"):
                 $result[] = view_button(base_url('sites/single_site/'.$site->ID))." ".edit_button(base_url('sites/single_site/'.$site->ID))." ".delete_button(base_url('sites/delete/'.$site->ID));
+                elseif($this->session->usertype == "Manager"):
+                $result[] = view_button(base_url('sites/single_site/'.$site->ID))." ".edit_button(base_url('sites/single_site/'.$site->ID));
+                elseif($this->session->usertype == "Engineer"):
+                $result[] = view_button(base_url('sites/single_site/'.$site->ID));
+                endif;
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -64,9 +74,18 @@ class Sites extends MY_Controller{
     }
 
     public function supply_site_table(){
-        $this->cm->table_name = "sites";
-        $this->cm->where = array('sitetype'=>'supply');
-        $sites = $this->cm->get();
+        $this->input->is_ajax_request() || show_404();
+        $this->session->usertype == "Admin" || $this->session->usertype == "Manager" || $this->session->usertype == "Site Manager" || exit('Permission Not Granted');
+        if($this->session->usertype == "Admin" || $this->session->usertype == "Manager"){
+            $this->cm->table_name = "sites";
+            $this->cm->where = array('sitetype'=>'supply');
+            $sites = $this->cm->get();
+        }elseif($this->session->usertype == "Site Manager"){
+            $this->cm->table_name = "sitemanagers";
+            $this->cm->join = array('sites'=>'sitemanagers.siteID=sites.ID');
+            $this->cm->where = array('managerID'=>$this->session->ID);
+            $sites = $this->cm->get();
+        }
         if($sites->num_rows() > 0){
             $n=1;
             foreach($sites->result() as $site){
@@ -75,8 +94,14 @@ class Sites extends MY_Controller{
                 $result[] = $site->name;
                 $result[] = $site->address;
                 $result[] = $site->sitetype;
-                $result[] = status_switch($site->status,base_url("sites/status/$site->ID/$site->status"));;
+                $result[] = status_switch($site->status,base_url("sites/status/$site->ID/$site->status"));
+                if($this->session->usertype == "Admin"):
                 $result[] = view_button(base_url('sites/single_site/'.$site->ID))." ".edit_button(base_url('sites/single_site/'.$site->ID))." ".delete_button(base_url('sites/delete/'.$site->ID));
+                elseif($this->session->usertype == "Manager"):
+                $result[] = view_button(base_url('sites/single_site/'.$site->ID))." ".edit_button(base_url('sites/single_site/'.$site->ID));
+                elseif($this->session->usertype == "Site Manager"):
+                $result[] = view_button(base_url('sites/single_site/'.$site->ID));
+                endif;
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -90,13 +115,13 @@ class Sites extends MY_Controller{
         }
     }
 
-    public function add(){
+    public function add($sitetype=NULL){
+        $this->input->is_ajax_request() || show_404();
         $this->form_validation->set_rules('name','Name','trim|xss_clean|required');
         $this->form_validation->set_rules('address','Address','trim|xss_clean|required');
         $this->form_validation->set_rules('created','Site Created','trim|xss_clean|required');
-        $this->form_validation->set_rules('sitetype','Site Type','trim|xss_clean|required');
         //check if site was construction or not and set engineer validation for construction site type
-        if($this->input->post('sitetype') == "Construction"):
+        if($sitetype == "Construction"):
             $this->form_validation->set_rules('engineerID','Engineer','trim|xss_clean|required');
         endif;
 
@@ -118,7 +143,7 @@ class Sites extends MY_Controller{
                 'name' => $post_data['name'],
                 'address' => $post_data['address'],
                 'created' => $post_data['created'],
-                'sitetype' => $post_data['sitetype'],
+                'sitetype' => $sitetype,
                 'engineerID' => $post_data['engineerID'],
                 'photo' => isset($filenames['photo']) ? $filenames['photo'] : "No File Selected",
             );
@@ -161,6 +186,7 @@ class Sites extends MY_Controller{
     }
 
     public function edit($ID){
+        $this->input->is_ajax_request() || show_404();
         $site = $this->single_site($ID,'array');
         $this->form_validation->set_rules('name','Name','trim|xss_clean|required');
         $this->form_validation->set_rules('address','Address','trim|xss_clean|required');
@@ -200,6 +226,7 @@ class Sites extends MY_Controller{
     }
 
     public function delete($ID = NULL){
+        $this->input->is_ajax_request() || show_404();
         $site = $this->single_site($ID,'array');
         if($this->cm->delete_file('./uploads/'.$site->photo)){
             $this->cm->_table_name = "sites";
@@ -214,6 +241,7 @@ class Sites extends MY_Controller{
     }
 
     public function status($ID,$status){
+        $this->input->is_ajax_request() || show_404();
         switch ($status){
             case (int) 0;
                 $status = (int) 1;

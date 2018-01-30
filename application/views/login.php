@@ -12,6 +12,8 @@
     <!-- Title -->
     <title>Islam Constructions</title>
 
+    <link rel="icon" href="<?php echo base_url('uploads/system/icon-white.png')?>">
+
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="<?php echo base_url('assets/');?>vendor/bootstrap4/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url('assets/');?>vendor/themify-icons/themify-icons.css">
@@ -31,7 +33,7 @@
 
 <div class="auth">
     <div class="auth-header">
-        <div class="mb-2"><img src="<?php echo base_url('assets/');?>img/logo.png" title=""></div>
+        <div class="mb-2"><img width="30%" src="<?php echo base_url('uploads/system/logo-white.png');?>" title=""></div>
         <h6>Welcome To Islam Constructions</h6>
     </div>
     <div class="container-fluid">
@@ -60,7 +62,7 @@
                             </label>
                         </div>
                         <div class="float-xs-right">
-                            <a class="text-white font-90" href="#">Forgot password?</a>
+                            <a class="text-white font-90" href="<?php echo base_url('forget_password')?>">Forgot password?</a>
                         </div>
                     </div>
                     <div class="form-group">

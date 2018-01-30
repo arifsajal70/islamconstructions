@@ -1,5 +1,8 @@
-<?php
+<?php defined('BASEPATH') or exit('No Direct Script access allowed');
 
+/**
+ * @property CI_Email $email
+ */
 class Crud_Model extends MY_Model{
 
     public $table_name;

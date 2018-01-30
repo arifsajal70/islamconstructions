@@ -35,7 +35,7 @@ $employees = $this->cm->get();
 <!-- Construction Site View  -->
 <div class="box box-block bg-white" id="construction-site-view" style="display:none;">
     <div class="profile-header mb-1">
-        <div class="profile-header-cover img-cover" style="background-image: url(<?php echo base_url('assets/');?>img/photos-1/1.jpg);"></div>
+        <div class="profile-header-cover img-cover"></div>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -114,7 +114,9 @@ $employees = $this->cm->get();
                                         <th>Date</th>
                                         <th>Stock Type</th>
                                         <th>Document</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+                                        	<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -125,7 +127,9 @@ $employees = $this->cm->get();
                                         <th>Date</th>
                                         <th>Stock Type</th>
                                         <th>Document</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -155,7 +159,9 @@ $employees = $this->cm->get();
                                         <th>Type</th>
                                         <th>Note</th>
                                         <th>Document</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -166,7 +172,9 @@ $employees = $this->cm->get();
                                         <th>Type</th>
                                         <th>Note</th>
                                         <th>Document</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -176,9 +184,11 @@ $employees = $this->cm->get();
 
                         <!-- Construction Site Accounts -->
                         <div class="tab-pane card-block" id="construction-site-employee" role="tabpanel">
+							<?php if($this->session->usertype == "Admin" || $this->session->usertype == "Manager"):?>
                             <div class="col-xs-12">
                                 <button class="btn btn-primary col-xs-12 pull-right mb-1" data-toggle="modal" data-target="#addEmployee">Add Employee</button>
                             </div>
+							<?php endif;?>
                             <div class="col-md-12 table-responsive">
                                 <table class="table table-striped table-bordered" id="siteemployeesTable" style="width:100%;">
                                     <thead>
@@ -189,7 +199,9 @@ $employees = $this->cm->get();
                                         <th>Phone</th>
                                         <th>Photo</th>
                                         <th>Working As</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -200,7 +212,9 @@ $employees = $this->cm->get();
                                         <th>Phone</th>
                                         <th>Photo</th>
                                         <th>Working As</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -221,7 +235,9 @@ $employees = $this->cm->get();
                                         <th>Title</th>
                                         <th>Note</th>
                                         <th>Download</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -230,7 +246,9 @@ $employees = $this->cm->get();
                                         <th>Title</th>
                                         <th>Note</th>
                                         <th>Download</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -248,8 +266,9 @@ $employees = $this->cm->get();
 
 </div>
 <!-- Construction Site View End -->
-
+<?php if($this->session->usertype == "Admin" || $this->session->usertype == "Manager"):?>
 <button class="btn btn-success btn-circle btn-lg btn-float-right" data-toggle="modal" data-target="#addingModal"><i class="ti-plus"></i></button>
+<?php endif;?>
 <button class="btn btn-danger btn-circle btn-lg btn-float-right" id="back" style="display:none;"><i class="ti-arrow-left"></i></button>
 
 <!--Adding Modal -->
@@ -262,9 +281,8 @@ $employees = $this->cm->get();
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Add Site</h4>
             </div>
-            <form id="addForm" action="<?php echo base_url('sites/add')?>" method="post" enctype="multipart/form-data">
+            <form id="addForm" action="<?php echo base_url('sites/add/Construction')?>" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <input type="hidden" name="sitetype" value="Construction">
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" class="form-control" placeholder="Name" name="name">

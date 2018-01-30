@@ -101,6 +101,33 @@ $(document).ready(function() {
     });
     //end after clicking Managers
 
+    //after clicking Managers
+    $("[href=\"#supply-site-current-works\"]").click(function(){
+        window.currentWorksTable = $("#currentWorksTable").dataTable({
+            ajax : baseUrl+'current_work/work_table/'+siteID,
+            dom: 'Bfrtip',
+            destroy: true,
+            buttons: [
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions:{columns: '0,1,2,3,4'},
+                    title: function(){return pro.name+' ( Supply Site ) - Managers'}
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions:{columns: '0,1,2,3,4'},
+                    title: function(){return pro.name+' ( Supply Site ) - Managers'}
+                },
+                {
+                    extend: 'print',
+                    exportOptions:{columns: '0,1,2,3,4'},
+                    title: function(){return pro.name+' ( Supply Site ) - Managers'}
+                },
+            ]
+        });
+    });
+    //end after clicking Managers
+
 });
 
 function edit(url){
@@ -145,6 +172,7 @@ function view(url){
                     $("#billForm").attr('action',baseUrl+'bills/add/'+pro.ID);
                     $("#paymentForm").attr('action',baseUrl+'payments/add/'+pro.ID);
                     $("#addManagerForm").attr('action',baseUrl+'managers/add_manager_to_site/'+pro.ID);
+                    $("#addCurrentWorkForm").attr('action',baseUrl+'current_work/add/'+pro.ID);
 
                     //Loading All Billings
                     window.siteBillsTable = $("#siteBillsTable").dataTable({
@@ -179,4 +207,9 @@ function view(url){
             }
         });
     }
+}
+
+function change_current_status(url){
+	$("[data-target=\"#currentStatusChange\"]").click();
+	$("#currentStatusChangeForm").attr('action',url);
 }

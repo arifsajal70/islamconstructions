@@ -19,7 +19,9 @@ class Stocks extends MY_Controller{
                 $result[] = $stock->date;
                 $result[] = $stock->stocktype;
                 $result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"stocks\",\"".$stock->stockID."\")'><i class=\"ti-download\"></i> Download</button>";
+                if($this->session->usertype == "Admin"):
                 $result[] = delete_button(base_url('stocks/delete/'.$stock->stockID));
+                endif;
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -168,6 +170,10 @@ class Stocks extends MY_Controller{
         $this->cm->where = array('ID'=>$stockID);
         $stock = $this->cm->get()->row();
         $this->check_site_status($stock->siteID);
+
+        $this->cm->reset_query();
+		$this->cm->table_name = "stocks";
+		$this->cm->where = array('ID'=>$stockID);
         if($this->cm->delete_file('./uploads/'.$stock->document)){
             $this->cm->delete() ? $this->send_success('Stock Deleted Successfully') : $this->send_error('Can\'t Delete Stock Now, Please Try Again');
         }else{

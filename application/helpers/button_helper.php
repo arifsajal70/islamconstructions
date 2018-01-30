@@ -12,24 +12,12 @@ function view_button($url){
     return "<button type=\"button\" class=\"btn btn-purple btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"View\" onclick=\"view('$url')\"><span class=\"fa fa-eye\"></span></button>";
 }
 
-function media_button($ajax_call,$id){
-    return "<button type=\"button\" class=\"btn bg-instagram btn-sm\" onclick=\"$ajax_call('$id')\"><span class=\"fa fa-image\"></span></button>";
-}
-
-function discount_button($ajax_call,$id){
-    return "<button type=\"button\" class=\"btn bg-dribbble btn-sm\" onclick=\"$ajax_call('$id')\"><span class=\"fa fa-calculator\"></span></button>";
-}
-
-function review_button($ajax_call,$id){
-    return "<button type=\"button\" class=\"btn bg-tumblr btn-sm\" onclick=\"$ajax_call('$id')\"><span class=\"fa fa-globe\"></span></button>";
-}
-
-function add_button($ajax_call,$id){
-    return "<button type=\"button\" class=\"btn btn-success btn-sm\" onclick=\"$ajax_call('$id')\"><span class=\"fa fa-plus\"></span></button>";
-}
-
 function pass_change_button($url){
     return "<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Change Password\"  onclick=\"password_change('$url')\"><span class=\"fa fa-lock\"></span></button>";
+}
+
+function current_work_status_change($url){
+    return "<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Change Current Status\"  onclick=\"change_current_status('$url')\"><span class=\"fa fa-exchange\"></span></button>";
 }
 
 function status_switch($status,$url){
@@ -50,20 +38,29 @@ function status_button($status){
     }
 }
 
+function current_status_button($status){
+    if($status == "Not Arrived"){
+        return "<button type=\"button\" class=\"btn btn-danger btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Not Arrived\" >".$status."</button>";
+    }
+    elseif($status == "Arrived"){
+        return "<button type=\"button\" class=\"btn btn-warning btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Arrived\" >".$status."</button>";
+    }
+    elseif($status == "Unloading"){
+        return "<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Unloading\" >".$status."</button>";
+    }
+    elseif($status == "Unloaded"){
+        return "<button type=\"button\" class=\"btn btn-purple btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Unloaded\" >".$status."</button>";
+    }
+    elseif($status == "Completed"){
+        return "<button type=\"button\" class=\"btn btn-success btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Completed\" >".$status."</button>";
+    }
+}
+
 function payment_status($status,$url){
     if($status == (int) 1){
         return "<button type=\"button\" class=\"btn btn-success btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Change Status To Unpaid\" onclick=\"switchStatus('$url')\">Paid</button>";
     }
     else{
         return "<button type=\"button\" class=\"btn btn-danger btn-sm\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Change Status To Paid\" onclick=\"switchStatus('$url')\">Unpaid</button>";
-    }
-}
-
-function featured_button($ajax_call,$id,$status){
-    if($status == 1){
-        return "<button type=\"button\" class=\"btn btn-success btn-sm\" onclick=\"$ajax_call('$id','$status')\">Featured</button>";
-    }
-    else{
-        return "<button type=\"button\" class=\"btn btn-danger btn-sm\" onclick=\"$ajax_call('$id','$status')\">Not Featured</button>";
     }
 }

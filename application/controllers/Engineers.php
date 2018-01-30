@@ -2,7 +2,12 @@
 
 class Engineers extends MY_Controller{
 
-    public function index(){
+	public function __construct(){
+		parent::__construct();
+		$this->session->usertype == "Admin" || $this->session->usertype == "Manager" || show_404();
+	}
+
+	public function index(){
         $data['loader'] = $this->load(array(
             'datatables',
             'upload',
@@ -19,6 +24,8 @@ class Engineers extends MY_Controller{
     }
 
     public function engineer_table(){
+    	$this->input->is_ajax_request() || exit("You can't access this page Directly");
+
         $this->cm->table_name = "engineers";
         $engineers = $this->cm->get();
 
@@ -32,8 +39,12 @@ class Engineers extends MY_Controller{
                 $result[] = $eng->phone;
                 $result[] = file_exists('./uploads/'.$eng->photo) ? "<img src='".base_url('uploads/'.$eng->photo)."' width='30px' />" : "-";
                 $result[] = status_switch($eng->status,"engineers/status/$eng->ID/$eng->status");
-                $result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"engineers\",\"".$eng->ID."\")'><i class=\"ti-download\"></i> Download</button>";
+                $result[] = !file_exists('./uploads/'.$eng->document) ? "No File" :"<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"engineers\",\"".$eng->ID."\")'><i class=\"ti-download\"></i> Download</button>";
+                if($this->session->usertype == "Admin"):
                 $result[] = pass_change_button(base_url('engineers/change_password/'.$eng->ID))." ".view_button(base_url('engineers/single_engineer/'.$eng->ID))." ".edit_button(base_url('engineers/single_engineer/'.$eng->ID))." ".delete_button(base_url('engineers/delete/'.$eng->ID));
+                elseif($this->session->usertype == "Manager"):
+                $result[] = pass_change_button(base_url('engineers/change_password/'.$eng->ID))." ".view_button(base_url('engineers/single_engineer/'.$eng->ID))." ".edit_button(base_url('engineers/single_engineer/'.$eng->ID));
+				endif;
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -48,6 +59,8 @@ class Engineers extends MY_Controller{
     }
 
     public function working_history($ID){
+		$this->input->is_ajax_request() || exit("You can't access this page Directly");
+
         $this->cm->table_name = "sites";
         $this->cm->where = array('engineerID'=>$ID);
         $sites = $this->cm->get();
@@ -73,6 +86,8 @@ class Engineers extends MY_Controller{
     }
 
     public function salary_table($ID){
+		$this->input->is_ajax_request() || exit("You can't access this page Directly");
+
         $this->cm->table_name = "engineersalary";
         $this->cm->where = array('engineerID'=>$ID);
         $salary = $this->cm->get();
@@ -84,7 +99,9 @@ class Engineers extends MY_Controller{
                 $result[] = $sal->salary." ৳";
                 $result[] = payment_status($sal->paid,base_url('salary/give_salary_to_engineer/'.$sal->ID.'/'.$sal->paid));
                 $result[] = date('F Y',strtotime($sal->date));
+                if($this->session->usertype == "Admin"):
                 $result[] = delete_button(base_url('salary/delete_engineer_salary/'.$sal->ID));
+                endif;
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -99,6 +116,8 @@ class Engineers extends MY_Controller{
     }
 
     public function add(){
+		$this->input->is_ajax_request() || exit("You can't access this page Directly");
+
         $this->form_validation->set_rules('name','Name','trim|xss_clean|required');
         $this->form_validation->set_rules('email','Email','trim|xss_clean|required|valid_email|is_unique[admins.email]|is_unique[managers.email]|is_unique[engineers.email]');
         $this->form_validation->set_rules('phone','Phone','trim|xss_clean|required|is_unique[admins.phone]|is_unique[managers.phone]|is_unique[engineers.phone]');
@@ -175,6 +194,8 @@ class Engineers extends MY_Controller{
     }
 
     public function edit($ID){
+		$this->input->is_ajax_request() || exit("You can't access this page Directly");
+
         $eng = $this->single_engineer($ID,'array');
         $this->form_validation->set_rules('name','Name','trim|xss_clean|required');
         if($eng->email == $this->input->post('email')){
@@ -224,6 +245,8 @@ class Engineers extends MY_Controller{
     }
 
     public function change_password($ID=NULL){
+		$this->input->is_ajax_request() || exit("You can't access this page Directly");
+
         $this->form_validation->set_rules('password','Password','trim|xss_clean|required');
         $this->form_validation->set_rules('cpassword','Confirm Password','trim|xss_clean|matches[password]');
         if($this->form_validation->run() == FALSE){
@@ -241,6 +264,8 @@ class Engineers extends MY_Controller{
     }
 
     public function status($ID,$status){
+		$this->input->is_ajax_request() || exit("You can't access this page Directly");
+
         switch ($status){
             case (int) 0;
                 $status = (int) 1;
@@ -261,6 +286,9 @@ class Engineers extends MY_Controller{
     }
 
     public function delete($ID = NULL){
+    	$this->input->is_ajax_request() || exit("You can't access this page Directly");
+    	$this->session->usertype == "Admin" || $this->send_error('You Dont Have Permission to Delete This');
+
         $this->cm->table_name = "sites";
         $this->cm->field_name = "engineerID";
         $this->cm->primary_key = $ID;

@@ -34,7 +34,7 @@ $managers = $this->cm->get();
 <!-- Construction Site View  -->
 <div class="box box-block bg-white" id="supply-site-view" style="display:none;">
     <div class="profile-header mb-1">
-        <div class="profile-header-cover img-cover" style="background-image: url(<?php echo base_url('assets/');?>img/photos-1/1.jpg);"></div>
+        <div class="profile-header-cover img-cover"></div>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -57,12 +57,15 @@ $managers = $this->cm->get();
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#supply-site-payments" role="tab">Payments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#supply-site-managers" role="tab">Managers</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#supply-site-managers" role="tab">Managers</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#supply-site-current-works" role="tab">Current Works</a>
+						</li>
+					</ul>
+					<div class="tab-content">
 
                         <div class="tab-pane active card-block" id="supply-site-bills" role="tabpanel">
                             <div class="col-xs-12">
@@ -80,7 +83,9 @@ $managers = $this->cm->get();
                                         <th>Rate</th>
                                         <th>Total</th>
                                         <th>Download</th>
+										<?php if($this->session->usertype == "Admin"):?>
                                         <th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -93,7 +98,9 @@ $managers = $this->cm->get();
                                         <th>Rate</th>
                                         <th>Total</th>
                                         <th>Download</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -120,7 +127,9 @@ $managers = $this->cm->get();
                                         <th>Date</th>
                                         <th>Amount</th>
                                         <th>Download</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -130,7 +139,9 @@ $managers = $this->cm->get();
                                         <th>Date</th>
                                         <th>Amount</th>
                                         <th>Download</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -138,9 +149,11 @@ $managers = $this->cm->get();
                         </div>
 
                         <div class="tab-pane card-block" id="supply-site-managers" role="tabpanel">
+							<?php if($this->session->usertype == "Admin" || $this->session->usertype == "Manager") :?>
                             <div class="col-xs-12">
                                 <button type="button" class="btn btn-primary col-xs-12 pull-right mb-1 " data-toggle="modal" data-target="#addManager">Add Manager</button>
                             </div>
+							<?php endif;?>
                             <div class="col-md-12 table-responsive">
                                 <table class="table table-striped table-bordered" id="siteManagersTable" style="width:100%;">
                                     <thead>
@@ -150,7 +163,9 @@ $managers = $this->cm->get();
                                         <th>Manager Email</th>
                                         <th>Manager Phone</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -160,7 +175,39 @@ $managers = $this->cm->get();
                                         <th>Manager Email</th>
                                         <th>Manager Phone</th>
                                         <th>Status</th>
+										<?php if($this->session->usertype == "Admin"):?>
+											<th>Action</th>
+										<?php endif;?>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane card-block" id="supply-site-current-works" role="tabpanel">
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-primary col-xs-12 pull-right mb-1 " data-toggle="modal" data-target="#addCurrentWork">Add Current Work</button>
+                            </div>
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-striped table-bordered" id="currentWorksTable" style="width:100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Vehicle</th>
+                                        <th>Vehicle Name</th>
+                                        <th>Vehicle Number</th>
+                                        <th>Current Status</th>
                                         <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+										<th>SL</th>
+										<th>Vehicle</th>
+										<th>Vehicle Name</th>
+										<th>Vehicle Number</th>
+										<th>Current Status</th>
+										<th>Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -190,8 +237,7 @@ $managers = $this->cm->get();
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Add Site</h4>
             </div>
-            <form id="addForm" action="<?php echo base_url('sites/add')?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="sitetype" value="Supply">
+            <form id="addForm" action="<?php echo base_url('sites/add/Supply')?>" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Name</label>
@@ -312,7 +358,6 @@ $managers = $this->cm->get();
 </div>
 <!-- Bill Add Ends -->
 
-
 <!-- Payment Add -->
 <div class="modal fade" role="dialog" aria-labelledby="addPayment" aria-hidden="true" id="addPayment">
     <div class="modal-dialog">
@@ -364,15 +409,15 @@ $managers = $this->cm->get();
             </div>
             <form id="addManagerForm" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label>Select Manager</label>
-                        <select name="managerID" class="form-control select2" style="width:100%;">
-                            <option value="">Select Manager</option>
-                            <?php if($managers->num_rows() > 0):foreach($managers->result() as $man):?>
-                            <option value="<?php echo $man->ID ;?>"><?php echo $man->name ;?></option>
-                            <?php endforeach;endif;?>
-                        </select>
-                    </div>
+					<div class="form-group">
+						<label>Select Manager</label>
+						<select name="managerID" class="form-control select2" style="width:100%;">
+							<option value="">Select Manager</option>
+							<?php if($managers->num_rows() > 0):foreach($managers->result() as $man):?>
+								<option value="<?php echo $man->ID ;?>"><?php echo $man->name ;?></option>
+							<?php endforeach;endif;?>
+						</select>
+					</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -383,3 +428,88 @@ $managers = $this->cm->get();
     </div>
 </div>
 <!-- Manager Add Ends -->
+
+<!-- Manager Add -->
+<div class="modal fade" role="dialog" aria-labelledby="addCurrentWork" aria-hidden="true" id="addCurrentWork">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Add Current Work</h4>
+            </div>
+            <form id="addCurrentWorkForm" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+					<div class="form-group">
+						<label>Select Manager</label>
+						<select name="vehicle" class="form-control">
+							<option value="">Select Vehicle</option>
+							<option value="Truck">Truck</option>
+							<option value="Ship">Ship</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Vehicle Name</label>
+						<input type="text" class="form-control" placeholder="Vehicle Name" name="vehicle_name">
+					</div>
+					<div class="form-group">
+						<label>Vehicle Number</label>
+						<input type="text" class="form-control" placeholder="Vehicle Number" name="vehicle_number">
+					</div>
+					<div class="form-group">
+						<label>Current Status</label>
+						<select name="current_status" class="form-control select2" style="width:100%;">
+							<option value="">Select Current Status</option>
+							<option value="Not Arrived">Not Arrived</option>
+							<option value="Arrived">Arrived</option>
+							<option value="Unloading">Unloading</option>
+							<option value="Unloaded">Unloaded</option>
+							<option value="Completed">Completed</option>
+						</select>
+					</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Current Work</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Manager Add Ends -->
+
+<button data-toggle="modal" data-target="#currentStatusChange" style="display:none;"></button>
+<!-- Change Current Status Modal -->
+<div class="modal fade" role="dialog" aria-labelledby="currentStatusChange" aria-hidden="true" id="currentStatusChange">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Change Current Status</h4>
+			</div>
+			<form id="currentStatusChangeForm" method="post" enctype="multipart/form-data">
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Statuses</label>
+						<select name="status" class="form-control">
+							<option value="">Select Status</option>
+							<option value="Not Arrived">Not Arrived</option>
+							<option value="Arrived">Arrived</option>
+							<option value="Unloading">Unloading</option>
+							<option value="Unloaded">Unloaded</option>
+							<option value="Completed">Completed</option>
+						</select>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save Status</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Change Current Status Modal Ends -->

@@ -1,4 +1,8 @@
 <?php defined('BASEPATH') or exit('No DIrect script access allowed');?>
+<?php
+$this->cm->table_name = "items";
+$items = $this->cm->get();
+?>
 <div class="box box-block bg-white table-responsive" id="eng-table-view">
     <table class="table table-striped table-bordered dataTable" id="suppliersTable" style="width:100%;">
         <thead>
@@ -8,6 +12,7 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Image</th>
+            <th>Document</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -18,6 +23,7 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Image</th>
+			<th>Document</th>
             <th>Action</th>
         </tr>
         </tfoot>
@@ -27,30 +33,7 @@
 <!-- Profile  -->
 <div class="box box-block bg-white" id="profile-view" style="display:none;">
     <div class="profile-header mb-1">
-        <div class="profile-header-cover img-cover" style="background-image: url(<?php echo base_url('assets/');?>img/photos-1/1.jpg);"></div>
-        <div class="profile-header-counters clearfix">
-            <div class="container-fluid">
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">2k</h5>
-                        <span class="text-muted">Followers</span>
-                    </a>
-                </div>
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">320</h5>
-                        <span class="text-muted">Following</span>
-                    </a>
-
-                </div>
-                <div class="float-xs-right">
-                    <a href="#" class="text-black">
-                        <h5 class="font-weight-bold">190</h5>
-                        <span class="text-muted">Activities</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+        <div class="profile-header-cover img-cover"></div>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -64,238 +47,127 @@
                         <div class="text-muted mb-1"  id="profile-email">default@email.com</div>
                         <a class="btn btn-primary btn-rounded waves-effect" id="profile-call-now">Call Now</a>
                     </div>
-                    <ul class="list-group">
-                        <a class="list-group-item" href="#">
-                            <i class="ti-world mr-0-5"></i> example.com
-                        </a>
-                        <a class="list-group-item" href="#">
-                            <i class="ti-facebook mr-0-5"></i> facebook.com/example
-                        </a>
-                        <a class="list-group-item" href="#">
-                            <i class="ti-twitter mr-0-5"></i> twitter.com/example
-                        </a>
-                    </ul>
-                </div>
-                <div class="card">
-                    <div class="card-header text-uppercase"><b>Who to follow</b></div>
-                    <div class="items-list">
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/1.jpg" alt="">
-                                            <i class="status bg-success bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/2.jpg" alt="">
-                                            <i class="status bg-danger bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                        <div class="il-item">
-                            <a class="text-black" href="#">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="avatar box-48">
-                                            <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/3.jpg" alt="">
-                                            <i class="status bg-secondary bottom right"></i>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Doe</h6>
-                                        <span class="text-muted">Software Engineer</span>
-                                    </div>
-                                </div>
-                                <div class="il-icon"><i class="fa fa-angle-right"></i></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card-block">
-                        <button type="submit" class="btn btn-primary btn-block">Show more</button>
-                    </div>
-                </div>
-                <div class="box bg-white">
-                    <ul class="nav nav-4">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-home"></i> My Profile
-                                <div class="tag tag-warning float-xs-right">14</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-pulse"></i> Balance
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ti-wallet"></i> Friends
-                                <div class="tag tag-purple float-xs-right">14</div>
-                            </a>
-                        </li>
-                        <li class="nav-item b-b-0">
-                            <a class="nav-link" href="#">
-                                <i class="ti-help-alt"></i> Settings
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
-            <div class="col-sm-8 col-md-9">
+            <div class="col-sm-8 col-md-9 mt-2">
                 <div class="card mb-0">
                     <ul class="nav nav-tabs nav-tabs-2 profile-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#photos" role="tab">Photos</a>
+                            <a class="nav-link" data-toggle="tab" href="#supplier-bills" role="tab">Bills</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#friends" role="tab">Friends</a>
+                            <a class="nav-link" data-toggle="tab" href="#supplier-payments" role="tab">Payments</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="profile" role="tabpanel">
+							<div class="card-block">
+								<table class="table">
+									<tbody>
+									<tr>
+										<th>Name</th>
+										<th>:</th>
+										<td for="name">[ XXXXXX XXXXXX ]</td>
+									</tr>
+									<tr>
+										<th>Email</th>
+										<th>:</th>
+										<td for="email">[ XXXXXXXX@XXXX.XXX ]</td>
+									</tr>
+									<tr>
+										<th>Phone</th>
+										<th>:</th>
+										<td for="phone">[ XXX-XXX XXXXX ]</td>
+									</tr>
+									<tr>
+										<th>Address</th>
+										<th>:</th>
+										<td for="address">[ XXXXXXXXXXXXXXX.............. ]</td>
+									</tr>
+									<tr>
+										<th>Document</th>
+										<th>:</th>
+										<td><button type="button" for="document" class="btn btn-info btn-sm waves-effect waves-light"><i class="ti-download"></i> Download</button></td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+                        </div>
+                        <div class="tab-pane card-block" id="supplier-bills" role="tabpanel">
+							<div class="col-xs-12">
+								<button type="button" class="btn btn-primary col-xs-12 pull-right mb-1 " data-toggle="modal" data-target="#addBill">Add Bill</button>
+							</div>
+							<div class="col-md-12 table-responsive">
+								<table class="table table-striped table-bordered" id="siteBillsTable" style="width:100%;">
+									<thead>
+									<tr>
+										<th>SL</th>
+										<th>Title</th>
+										<th>Date</th>
+										<th>Item</th>
+										<th>Quantity</th>
+										<th>Rate</th>
+										<th>Total</th>
+										<th>Download</th>
+										<th>Action</th>
+									</tr>
+									</thead>
+									<tfoot>
+									<tr>
+										<th>SL</th>
+										<th>Title</th>
+										<th>Date</th>
+										<th>Item</th>
+										<th>Quantity</th>
+										<th>Rate</th>
+										<th>Total</th>
+										<th>Download</th>
+										<th>Action</th>
+									</tr>
+									</tfoot>
+								</table>
+							</div>
+                        </div>
+                        <div class="tab-pane card-block" id="supplier-payments" role="tabpanel">
+							<div class="col-md-12 user-1 mb-1">
+								<div class="u-counters">
+									<div class="row no-gutter" id="payments-report">
+										[Demo Accounts Report]
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<button type="button" class="btn btn-primary col-xs-12 pull-right mb-1 " data-toggle="modal" data-target="#addPayment">Add Payment</button>
+							</div>
+							<div class="col-md-12 table-responsive">
+								<table class="table table-striped table-bordered" id="sitePaymentsTable" style="width:100%;">
+									<thead>
+									<tr>
+										<th>SL</th>
+										<th>Title</th>
+										<th>Date</th>
+										<th>Amount</th>
+										<th>Download</th>
+										<th>Action</th>
+									</tr>
+									</thead>
+									<tfoot>
+									<tr>
+										<th>SL</th>
+										<th>Title</th>
+										<th>Date</th>
+										<th>Amount</th>
+										<th>Download</th>
+										<th>Action</th>
+									</tr>
+									</tfoot>
+								</table>
+							</div>
+                        </div>
 
-                        </div>
-                        <div class="tab-pane card-block" id="photos" role="tabpanel">
-                            <div class="gallery-2 row">
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/1.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/1.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/2.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/2.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <div class="g-item">
-                                        <a href="<?php echo base_url('assets/');?>img/photos-1/3.jpg">
-                                            <img src="<?php echo base_url('assets/');?>img/photos-1/3.jpg" alt="">
-                                        </a>
-                                        <div class="g-item-overlay clearfix">
-                                            <div class="float-xs-left">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-heart mr-0-5"></i>105</a>
-                                            </div>
-                                            <div class="float-xs-right">
-                                                <a class="text-white" href="#" data-toggle="modal" data-target="#likesModal"><i class="ti-comment mr-0-5"></i>20</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane card-block" id="friends" role="tabpanel">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/8.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/9.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block mb-1">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/10.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6">
-                                    <div class="box box-block">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <div class="avatar box-48">
-                                                    <img class="b-a-radius-circle" src="<?php echo base_url('assets/');?>img/avatars/1.jpg" alt="">
-                                                    <i class="status bg-success bottom right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading mt-0-5"><a class="text-black" href="#">John Doe</a></h6>
-                                                <span class="font-90 text-muted">Software Engineer</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -402,3 +274,94 @@
     </div>
 </div>
 <!--Editing Modal Ends -->
+
+<!-- Bill Add -->
+<div class="modal fade" role="dialog" aria-labelledby="addBill" aria-hidden="true" id="addBill">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Add Bill</h4>
+			</div>
+			<form method="post" enctype="multipart/form-data" id="billForm">
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Title</label>
+						<input type="text" class="form-control" placeholder="Title" name="title">
+					</div>
+					<div class="form-group">
+						<label>Date</label>
+						<input type="text" class="form-control datepicker" name="date" value="<?php echo date('Y-m-d');?>">
+					</div>
+					<div class="form-group">
+						<label>Item</label>
+						<select name="itemID" class="form-control select2" style="width:100%;" aria-hidden="true">
+							<option value="">Select Item</option>
+							<?php if($items->num_rows() > 0):foreach($items->result() as $item):?>
+								<option value="<?php echo $item->ID;?>"><?php echo $item->name;?></option>
+							<?php endforeach;endif;?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Quantity</label>
+						<input type="number" class="form-control" placeholder="Quantity" name="quantity">
+					</div>
+					<div class="form-group">
+						<label>Rate Per Item</label>
+						<input type="number" class="form-control" placeholder="Rate Per Item" name="rate">
+					</div>
+					<div class="form-group">
+						<label>Documents</label>
+						<input type="file" class="dropify" name="document">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Add Bill</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Bill Add Ends -->
+
+<!-- Payment Add -->
+<div class="modal fade" role="dialog" aria-labelledby="addPayment" aria-hidden="true" id="addPayment">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Add Payment</h4>
+			</div>
+			<form method="post" enctype="multipart/form-data" id="paymentForm">
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Title</label>
+						<input type="text" class="form-control" placeholder="Title" name="title">
+					</div>
+					<div class="form-group">
+						<label>Date</label>
+						<input type="text" class="form-control datepicker" name="date" value="<?php echo date('Y-m-d');?>">
+					</div>
+					<div class="form-group">
+						<label>Amount</label>
+						<input type="number" class="form-control" placeholder="Amount" name="amount">
+					</div>
+					<div class="form-group">
+						<label>Documents</label>
+						<input type="file" class="dropify" name="document">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Add Payment</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Payment Add Ends -->

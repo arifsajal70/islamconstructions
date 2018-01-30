@@ -1,5 +1,13 @@
 <?php defined('BASEPATH') or exit('No Direct script access allowed');
 
+/**
+ * @var MY_Controller $this
+ * @property Crud_Model $cm
+ * @property CI_Form_validation $form_validation
+ * @property CI_Input $input
+ * @property CI_Session $session
+ */
+
 class MY_Controller extends CI_Controller{
 
     function __construct(){

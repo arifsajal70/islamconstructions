@@ -9,9 +9,14 @@ $("form").submit(function(e){
             var alert = JSON.parse(response);
             if(alert.status == "success"){
                 reloadTable();
-                $("form input,textarea,select").val('');
-                $('.dropify-clear').click();
                 toastr['success'](alert.message);
+				if($(".form").is(":visible")){
+					setTimeout(function(){
+						window.location = baseUrl+'profile';
+					},3000);
+				}
+				$("form input,textarea,select").val('');
+				$('.dropify-clear').click();
                 $("button[data-dismiss=\"modal\"]").click();
                 if($("#stock-report").is(":visible")){
                     $("[href=\"#construction-site-stock\"]").click();
@@ -21,6 +26,7 @@ $("form").submit(function(e){
                 }
                 if($("#payments-report").is(":visible")){
                     $("[href=\"#supply-site-payments\"]").click();
+					$("[href=\"#supplier-payments\"]").click();
                 }
             }else if(alert.status == "error"){
                 toastr['error'](alert.message);
@@ -36,9 +42,11 @@ $("form").submit(function(e){
     });
 });
 
-$(".dropify").dropify();
 $(".select2").each(function () {
     $(this).select2();
+});
+$(".dropify").each(function () {
+    $(this).dropify();
 });
 $(".datepicker").each(function () {
     $(this).datepicker({
@@ -48,6 +56,8 @@ $(".datepicker").each(function () {
         todayHighlight: true,
     });
 });
+
+$("#dataTables").dataTable();
 
 $('table').on('draw.dt', function() {
     $('[data-toggle="tooltip"]').tooltip();
@@ -95,6 +105,7 @@ function deleteElelm(url){
                         }
                         if($("#payments-report").is(":visible")){
                             $("[href=\"#supply-site-payments\"]").click();
+							$("[href=\"#supplier-payments\"]").click();
                         }
                     }else if(data.status === "error"){
                         swal({
@@ -175,6 +186,12 @@ function reloadTable(){
         salaryTable.fnReloadAjax();
     }else if($("#siteManagersTable").is(":visible")){
         siteManagersTable.fnReloadAjax();
+    }else if($("#currentWorksTable").is(":visible")){
+		currentWorksTable.fnReloadAjax();
+    }else if($("#addBalanceTable").is(":visible")){
+		addBalanceTable.fnReloadAjax();
+    }else if($("#expenseTable").is(":visible")){
+		expenseTable.fnReloadAjax();
     }
 }
 

@@ -31,6 +31,7 @@ class Suppliers extends MY_Controller{
                 $result[] = $supplier->email;
                 $result[] = $supplier->phone;
                 $result[] = file_exists('./uploads/'.$supplier->photo) ? "<img src='".base_url('uploads/'.$supplier->photo)."' width='30px' />" : "-";
+				$result[] = "<button type=\"button\" class=\"btn btn-info btn-sm waves-effect waves-light\" onclick='download(\"suppliers\",\"".$supplier->ID."\")'><i class=\"ti-download\"></i> Download</button>";
                 $result[] = view_button(base_url('suppliers/single_supplier/'.$supplier->ID))." ".edit_button(base_url('suppliers/single_supplier/'.$supplier->ID))." ".delete_button(base_url('suppliers/delete/'.$supplier->ID));
                 $table['data'][] = $result;
             }
@@ -70,8 +71,9 @@ class Suppliers extends MY_Controller{
                 'email' => $post_data['email'],
                 'phone' => $post_data['phone'],
                 'address' => $post_data['address'],
-                'photo' => $filenames['photo'],
-                'document' => $filenames['document'],
+                'photo' => isset($filenames['photo']) ? $filenames['photo'] : "No File Selected",
+                'filename' => $_FILES['document']['name'] ? $_FILES['document']['name'] : "No File Selected",
+                'document' => isset($filenames['document']) ? $filenames['document'] : "No FIle Selected",
             );
             if(isset($insert_data)){
                 $this->cm->reset_query();
@@ -125,13 +127,11 @@ class Suppliers extends MY_Controller{
             $this->send_warning(validation_errors());
         }else{
             $post_data = $this->array_from_post(array('name','email','phone','address'));
-            $filenames['photo'] = $emp->photo;
-            $filenames['document'] = $emp->document;
             if($_FILES){
                 foreach($_FILES as $key => $value){
                     $upload = $this->cm->upload($key,'./uploads/');
                     if($upload['status'] == 'success'){
-                        $this->cm->delete_file('./uploads/'.$filenames[$key]);
+                        $this->cm->delete_file('./uploads/'.$emp->$key);
                         $filenames[$key] = $upload['file_name'];
                     }
                 }
@@ -141,8 +141,9 @@ class Suppliers extends MY_Controller{
                 'email' => $post_data['email'],
                 'phone' => $post_data['phone'],
                 'address' => $post_data['address'],
-                'photo' => $filenames['photo'],
-                'document' => $filenames['document'],
+				'photo' => isset($filenames['photo']) ? $filenames['photo'] : $emp->photo,
+				'filename' => $_FILES['document']['name'] ? $_FILES['document']['name'] : $emp->filename,
+				'document' => isset($filenames['document']) ? $filenames['document'] : $emp->document,
             );
             $this->cm->table_name = "suppliers";
             $this->cm->field_name = "ID";

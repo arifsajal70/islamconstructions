@@ -8,6 +8,7 @@ class Signin_Controller extends CI_Controller{
         $this->load->helper('security');
         $this->load->library('form_validation');
         $this->load->library('session');
+        $this->load->model('Crud_Model','cm');
     }
 
 }

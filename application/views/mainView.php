@@ -13,9 +13,6 @@
 
         <?php $this->load->view('compo/menu');?>
 
-        <!-- Sidebar second -->
-        <?php $this->load->view('compo/sidebar');?>
-
         <!-- Header -->
         <?php $this->load->view('compo/header');?>
 
@@ -31,7 +28,7 @@
                 <div class="container-fluid">
                     <div class="row text-xs-center">
                         <div class="col-sm-4 text-sm-left mb-0-5 mb-sm-0">
-                            2016 © Islam Constructions
+                            <?php echo date('Y')?> © Islam Constructions
                         </div>
                         <div class="col-sm-8 text-sm-right">
                             Powred By <a href="https://opticcoder.com" target="__blank">Optic Coder</a>

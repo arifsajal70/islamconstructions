@@ -444,15 +444,19 @@ a:active {
 }
 
 .site-header .navbar-brand .logo {
-  width: 100px;
-  height: 25px;
-  background: url(../img/logo.png) no-repeat;
+  width: 120px;
+  height: 30px;
+  background-size: contain;
+  background-image:url(../../uploads/system/logo-white.png);
+  background-repeat: no-repeat;
 }
 
 @media (min-width: 768px) {
   .compact-sidebar .site-header .navbar-brand .logo {
-    width: 25px;
-    background: url(../img/logo-small.png) no-repeat;
+    width: 30px;
+    background-size: contain;
+    background-image:url(../../uploads/system/icon-white.png);
+    background-repeat: no-repeat;
   }
 }
 
@@ -8610,6 +8614,7 @@ a.text-grey:focus .underline, a.text-grey:hover .underline {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  background-image: url("../../uploads/system/cover.jpg");
 }
 
 .img-fixed {

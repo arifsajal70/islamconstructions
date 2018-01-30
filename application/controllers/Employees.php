@@ -64,7 +64,9 @@ class Employees extends MY_Controller{
                 $result[] = $emp->phone;
                 $result[] = file_exists('./uploads/'.$emp->photo) ? "<img src='".base_url('uploads/'.$emp->photo)."' width='30px' />" : "-";
                 $result[] = $emp->usertype;
+                if($this->session->usertype == "Admin"):
                 $result[] = delete_button(base_url('employees/delete_employee_from_site/'.$emp->seID));
+                endif;
                 $table['data'][] = $result;
             }
             echo json_encode($table);
@@ -319,6 +321,9 @@ class Employees extends MY_Controller{
         $site = $this->cm->get()->row();
         $this->check_site_status($site->siteID);
 
+        $this->cm->reset_query();
+        $this->cm->table_name = "siteemployees";
+        $this->cm->where = array('ID'=>$ID);
         if($this->cm->delete()){
             $this->send_success('Employee Deleted From Site Successfully');
         }else{

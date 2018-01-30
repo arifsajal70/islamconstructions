@@ -53,6 +53,9 @@ class Salary extends MY_Controller{
     }
 
     public function delete_engineer_salary($ID){
+    	$this->input->is_ajax_request() || exit("You can't access this page Directly");
+    	$this->session->usertype == "Admin" || show_404();
+
         $this->cm->table_name = "engineersalary";
         $this->cm->where = array('ID'=>$ID);
         if($this->cm->delete()){
